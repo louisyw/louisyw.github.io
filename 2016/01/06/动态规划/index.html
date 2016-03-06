@@ -1,0 +1,1032 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="主要介绍动态规划">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态规划">
+<meta property="og:url" content="http://louisyw.github.io/2016/01/06/动态规划/index.html">
+<meta property="og:site_name" content="Louis's Blog">
+<meta property="og:description" content="主要介绍动态规划">
+<meta property="og:updated_time" content="2016-03-06T03:52:01.058Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态规划">
+<meta name="twitter:description" content="主要介绍动态规划">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 动态规划 | Louis's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Louis's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                动态规划
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-01-06T20:00:00+08:00" content="2016-01-06">
+              2016-01-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/06/动态规划/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/06/动态规划/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要介绍动态规划</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>[TOC]</p>
+<h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h2><p>有n个重量和价值分别为$ w_i$ ,$ v_i$的物品。从这些物品中挑选出总重量不超过W的物品，求所有挑选方案中价值总和最大的最大值。<br>例如，取n=4，W=5<br>$(w,v)={(2,3), (1.2), (3,4), (2,2)}$<br>递归解法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*rec(i,j)表示从第i个物品开始挑选总重量不大于j*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rec</span><span class="params">(i, j)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">if</span> (i == n)&#123;  <span class="comment">/*没有剩余物品 , i &lt;= n-1*/</span></span><br><span class="line">        res = <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(w[i] &gt; j)&#123;</span><br><span class="line">        res = rec(i+<span class="number">1</span>, j);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="comment">/*可以放下第i个物品*/</span></span><br><span class="line">        <span class="comment">/*       不挑选这个物品     挑选这个物品*/</span></span><br><span class="line">        res = max(rec(i+<span class="number">1</span>, j), rec(i+<span class="number">1</span>, j- w[i] ) + v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> rec(<span class="number">0</span>,W)</span><br></pre></td></tr></table></figure>
+<p>画出此程序的执行流程，可以发现程序计算了很多重复的问题,利用备忘录法，可以减小算法的复杂度<br>注意：数组是从0开始的，所以dp[0][m]表示的是选取第0个物品(数组中的索引为0，实际上是第一个物品)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[n+<span class="number">1</span>][W+<span class="number">1</span>];  <span class="comment">/*由于数组从0开始*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rec_memo</span><span class="params">(i, j)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dp[i][j] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> dp[i][j];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> res;</span><br><span class="line">    <span class="keyword">if</span> (i == n)&#123;</span><br><span class="line">        res = <span class="number">0</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (w[i] &gt; j)&#123;</span><br><span class="line">        res = rec_memo(i+<span class="number">1</span>, j)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        res = max(rec_memo(i+<span class="number">1</span>, j), rec_memo(i+<span class="number">1</span>, j-w[i])+v[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    dp[i][j] = res;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">int</span> ret = rec_memo(<span class="number">0</span>,W);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ret);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>观察上面的二位数组，可以看出如下的递推公式</p>
+<p>$$dp[n][j] = 0$$</p>
+<span>$$dp[i][j] = \begin{cases}
+            dp[i+1][j] &Tab;&Tab;&Tab;&Tab;&Tab;&amp; \text {j&lt;w[i]} \\
+            max(dp[i+1][j], dp[i+1][j-w[i]]+v[i]) &Tab;&amp; \text{其他}   \\
+        \end{cases}$$</span><!-- Has MathJax -->
+<p>此处需要注意的是：dp[0][m]<br>显然，上面的方程可以转换为以下的算法：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[n+<span class="number">1</span>][W+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt; W; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (j &lt; w[i])&#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j] = dp[i][j];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                max(dp[i+<span class="number">1</span>][j], dp[i+<span class="number">1</span>][j-w[i]] + v[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dp[<span class="number">0</span>][W]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>观察发现，上面的二维数组i是逆序进行的，这是为什么了？我们先来看一下dp[i][j]所表示的意义：dp[i][j]表示前面i-1步骤已经进行完，剩余的重量为j，在给定的j下的最优选择。我们换一种思路，<br><strong>dp[i+1][j]表示从前面i个物品中选出总重量不超过j时，总价值最大</strong><br>那么就有如下递推公式：<br>$$dp[0][j] = 0$$</p>
+<span>$$dp[i+1][j] = \begin{cases}
+            dp[i][j] &Tab;&Tab;&Tab;&Tab;&amp; \text{j&lt;w[i]} \\
+            max(dp[i][j], dp[i][ j-w[i] ]+v[i]) &amp; \text{其他}  \\
+             \end{cases}$$</span><!-- Has MathJax -->
+<ol>
+<li><p>此时从(i+1, j)状态考虑，这个状态可能是由两种状态转移过来</p>
+<ul>
+<li>(i, j)状态</li>
+<li>(i, j-w[i])状态<br>这时就需要考虑j与w[i]的大小关系<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[n+<span class="number">1</span>][W+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i= <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= W; j++ )&#123;</span><br><span class="line">            <span class="keyword">if</span>(j&lt;w[i])&#123;</span><br><span class="line">            <span class="comment">//此时j&lt;w[i]表明在总重为j的情况下，第i个物品已经不能被加入</span></span><br><span class="line">                dp[i+<span class="number">1</span>][j] = dp[i][j];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">/*此时第i个物品可以加入到此重量j中，分为两种情况</span><br><span class="line">             *第一种是没有加入第i个物品</span><br><span class="line">             *第二种是将第i个物品加入到这里面</span><br><span class="line">             */</span></span><br><span class="line">                dp[i+<span class="number">1</span>][j] = max(dp[i][j], dp[i][ j-w[i] ] + v[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>这里要这样理解此状态转移过程，<em>前i个物品中选取总重量不超过j时的状态</em>向<em>前i+1个物品中选取总重不超过j</em>和<em>前i+1个物品中选取总重不超过j+w[i]时的状态</em>的转移，此处是站在i状态考虑(i, j)，可以转换为以下两种状态</p>
+</li>
+</ol>
+<ul>
+<li>(i+1, j)状态</li>
+<li>(i+1, j+w[i])状态</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> dp[n+<span class="number">1</span>][w+<span class="number">1</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i= <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= W; j++ )&#123;</span><br><span class="line">            dp[i+<span class="number">1</span>][j] = max(dp[i+<span class="number">1</span>][j], dp[i][j]);</span><br><span class="line">            <span class="keyword">if</span>(j + w[i] &lt; W)&#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j + w[i]]=max(dp[i+<span class="number">1</span>][j+w[i]],dp[i][j] + v[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><p>给定两个字符串$s_1,s_2,s_3…s_n$和$t_1,t_2,t_3….s_m$,求出最长公共子序列<br>可以定义二位数组dp[i][j]，该数组的定义为：</p>
+<blockquote>
+<p>dp[i][j]:=$s_1, s_2, s_3….s_i$和$t_1, t_2, t_3….t_j$这两个序列的最长公共子序列的长度，故$s_1, s_2, s<em>3….s</em>{i+1}$和$t_1, t_2, t<em>3…t</em>{j+1}$的LCS的长度可能是，<br>如果$s<em>{i+1} = t</em>{j+1}$,那么长度就将加一<br>否则的话，可能就是$s_1, s_2, s_3,… s_i$与$t_1, t<em>2, ….t</em>{j+1}$的最长公共子序列，或者$s_1, s_2, s<em>3,…s</em>{i+1}$与$t_1, t_2,… t_j$的LCS,这两个LCS中最长的一个，用公式表示为：<br><span>$$dp[i+1][j+1] = \begin{cases}
+            max(dp[i][j] + 1, dp[i+1][j], dp[i][j+1])&amp; \text{ $s_{i+1} = t_{j+1}$ } \\
+            max(dp[i+1][j], dp[i][j+1]) &amp; \text{其他}   \\
+        \end{cases}$$</span><!-- Has MathJax --></p>
+</blockquote>
+<p>显然，以上的递推公式可以转换为：当0 &lt; p &lt; m,0 &lt; q &lt; n 时，p,q为其中的任意数<br>$$dp[0][p] = 0$$<br>$$ dp[q][0] = 0$$</p>
+<span>$$dp[i+1][j+1] = \begin{cases}
+          dp[i][j] + 1&amp; \text { $s_{i+1} = t_{j+1}$ } \\
+            max(dp[i+1][j], dp[i][j+1]) &amp; \mbox{其他} \\
+        \end{cases}$$</span><!-- Has MathJax -->
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给定的数组从下标1开始</span></span><br><span class="line"><span class="keyword">int</span> dp[n+<span class="number">1</span>][m+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (s[i] == t[j])&#123;</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                dp[i][j] = max(dp[i<span class="number">-1</span>][j], dp[i][j<span class="number">-1</span>])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,dp[n][m]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/25/闭包/" rel="next" title="Lua闭包">
+                <i class="fa fa-chevron-left"></i> Lua闭包
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/06/Docker基础知识/" rel="prev" title="Docker总结">
+                Docker总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/06/动态规划/"
+           data-title="动态规划" data-url="http://louisyw.github.io/2016/01/06/动态规划/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="gcc" />
+          <p class="site-author-name" itemprop="name">gcc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="h" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 0
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="t" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 1
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="t" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 2
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="p" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 3
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="s" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 4
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href=":" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 5
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 6
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 7
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="g" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 8
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="i" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 9
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="t" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 10
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="h" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 11
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="u" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 12
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="b" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 13
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="." target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 14
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="c" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 15
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="o" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 16
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="m" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 17
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 18
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="l" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 19
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="o" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 20
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="u" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 21
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="i" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 22
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="s" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 23
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="y" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 24
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="w" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 25
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划"><span class="nav-number"></span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#01背包问题"><span class="nav-number">1.</span> <span class="nav-text">01背包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长公共子序列"><span class="nav-number">2.</span> <span class="nav-text">最长公共子序列</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gcc</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"louisyw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  
+
+
+
+<!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+</body>
+</html>

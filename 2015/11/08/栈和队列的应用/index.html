@@ -1,0 +1,1006 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法 单调栈 单调队列," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="最近在做题目的时候，发现了一种很好的数据结构：单调栈和单调队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="栈和队列的应用">
+<meta property="og:url" content="http://louisyw.github.io/2015/11/08/栈和队列的应用/index.html">
+<meta property="og:site_name" content="Louis's Blog">
+<meta property="og:description" content="最近在做题目的时候，发现了一种很好的数据结构：单调栈和单调队列">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/938179-6c783249a5f7d8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2016-03-03T08:00:09.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="栈和队列的应用">
+<meta name="twitter:description" content="最近在做题目的时候，发现了一种很好的数据结构：单调栈和单调队列">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/938179-6c783249a5f7d8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 栈和队列的应用 | Louis's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Louis's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                栈和队列的应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2015-11-08T15:30:00+08:00" content="2015-11-08">
+              2015-11-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/08/栈和队列的应用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/08/栈和队列的应用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在做题目的时候，发现了一种很好的数据结构：<strong>单调栈</strong>和<strong>单调队列</strong><br><a id="more"></a></p>
+<hr>
+<h1 id="栈和队列的应用"><a href="#栈和队列的应用" class="headerlink" title="栈和队列的应用"></a>栈和队列的应用</h1><h2 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h2><p>以前自己对栈的认识紧限于陷入后出的数据结构，实现一个逆序输出。直至遇到了这道题目，让我对栈有了重新的认识。<br>题目如下：<br>给出一个柱形统计图(histogram),它的每个bar的宽度为1，现在需求出柱形图中所能组成的矩形的最大面积。例如:6 2 1 5 6 2 3 ,其中7代表统计图中的bar的个数，后面的数据分别表示每个bar的高度。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/938179-6c783249a5f7d8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="histogram"></p>
+<p>先说一下自己难道题目的第一反应，分别计算出每个高度可以向左和向右扩展的长度，然后计算出每个高度对应的矩形的面积，得到最大值。显然这是一个$O(n^2)$复杂度的算法。</p>
+<p>那么有没有更简单的算法了：当然有，<strong>单调栈</strong><br>先介绍以下单调栈的执行过程：<br>从第一个bar开始往后扫描，扫描过程满足以下规则<br>(1)如果全部元素入栈，则将栈弹空；<br>(2)如果当前的bar的高度大于栈顶bar的高度，则将当前bar的下标入栈；<br>(3)否则执行出栈操作，直到栈顶的元素小于当前要入栈的元素，记录弹出下标对应的bar的高度，并计算出一个面积，比较这个面积与当前的最大面积，最后得到最大面积。</p>
+<p>栈中的保存的元素为(高度，起始的索引号)<br>算法的执行过程为：</p>
+<ol>
+<li>初始化时，栈底的元素为<strong>(0,0)</strong>，<strong>i = 1</strong>,<strong>面积s = 0</strong>,<strong>上一次的高度lastHeight = 0</strong>；</li>
+<li>此时 <strong>i = 1</strong>,加入第一个元素(2,1),满足条件(1)，故入栈，栈中的元素为<strong>(0,0),(2,1)</strong>;</li>
+<li><strong>i=2</strong> ,加入第二个元素(1,2)，满足条件(2),将要出栈，$面积 = (i-startindex)<em>height$，计算出的面积为 s = 2,lastHeight = 2 &gt; 1,将(1,1)入栈，<em>*栈中的元素为(0,0), (1,1)</em></em>;</li>
+<li><strong>i = 3</strong>  (5,3),入栈<strong>栈中的元素为(0,0), (1,1),(5,3)</strong>;</li>
+<li><strong>i = 4</strong>  (6,4),入栈<strong>栈中的元素为(0,0), (1,1),(5,3),(6,4)</strong>;</li>
+<li><strong>i = 5</strong>  (2,5),出栈，(6,4)出栈计算面积$s_1 = (5-4)<em>6 = 6$,(5,3)出栈$s_1 = (5-3)</em>5 = 10$,到(1,1)时， 1 &lt; 2,故将(2,3)入栈，此时的元素为(0,0),(1,1),(2,3);</li>
+<li><strong>i = 6</strong>, (3,6),入栈，此时全部入栈，将栈弹空；</li>
+</ol>
+<p>具体实现的代码为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIZE 100</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> length 9</span></span><br><span class="line"><span class="keyword">struct</span> ele&#123;</span><br><span class="line">	<span class="keyword">int</span> height;</span><br><span class="line">	<span class="keyword">int</span> startIndex;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> ele node;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	node <span class="built_in">stack</span>[SIZE];</span><br><span class="line">	<span class="keyword">int</span> top = <span class="number">0</span>;   <span class="comment">//top记录下一个位置</span></span><br><span class="line">	<span class="keyword">int</span> index = <span class="number">0</span>;  <span class="comment">//遍历数组</span></span><br><span class="line">	<span class="keyword">int</span> height[length] = &#123;<span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;<span class="comment">//第一个元素代表数组的长度</span></span><br><span class="line">	<span class="keyword">int</span> max_rect = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> rect;</span><br><span class="line">	<span class="built_in">stack</span>[<span class="number">0</span>].height = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">stack</span>[<span class="number">0</span>].startIndex = <span class="number">1</span>;</span><br><span class="line">	top++;</span><br><span class="line">	<span class="keyword">for</span> (index = <span class="number">1</span>; index &lt;= height[<span class="number">0</span>]; index++)&#123;</span><br><span class="line">	    <span class="comment">/*栈顶元素小于即将入栈的高度*/</span></span><br><span class="line">		<span class="keyword">if</span> (height[index] &gt;= <span class="built_in">stack</span>[top - <span class="number">1</span>].height)&#123;</span><br><span class="line">			<span class="built_in">stack</span>[top].height = height[index];</span><br><span class="line">			<span class="built_in">stack</span>[top].startIndex = index;</span><br><span class="line">			top++;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="comment">/**/</span></span><br><span class="line">			<span class="keyword">while</span>(<span class="built_in">stack</span>[top - <span class="number">1</span>].height &gt; height[index] &amp;&amp; top &gt; <span class="number">1</span>)&#123;</span><br><span class="line">				rect = (index - (<span class="built_in">stack</span>[top - <span class="number">1</span>].startIndex))*(<span class="built_in">stack</span>[top - <span class="number">1</span>].height);</span><br><span class="line">				<span class="keyword">if</span> (rect &gt; max_rect)</span><br><span class="line">					max_rect = rect;</span><br><span class="line">				top--;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">/*将新的高度入栈，此时栈顶的元素高度&lt;=当前高度，所以此时的新的高度的startIndex = 栈顶元素的startIndex*/</span></span><br><span class="line">			<span class="built_in">stack</span>[top].startIndex = <span class="built_in">stack</span>[top <span class="number">-1</span>].startIndex;</span><br><span class="line">			<span class="built_in">stack</span>[top].height = height[index];</span><br><span class="line">			top++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (top &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">stack</span>[top - <span class="number">1</span>].height &gt; height[index] &amp;&amp; top &gt; <span class="number">1</span>)&#123;</span><br><span class="line">			rect = (index - (<span class="built_in">stack</span>[top - <span class="number">1</span>].startIndex))*(<span class="built_in">stack</span>[top - <span class="number">1</span>].height);</span><br><span class="line">			<span class="keyword">if</span> (rect &gt; max_rect)</span><br><span class="line">				max_rect = rect;</span><br><span class="line">			top--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"the largest rect is %d.\n"</span>,max_rect);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h2><blockquote>
+<p><a href="https://leetcode.com/problems/sliding-window-maximum/" target="_blank" rel="external">sliding window maximun</a></p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_N 100000</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">maxSlidingWindow</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize, <span class="keyword">int</span> k, <span class="keyword">int</span>* returnSize)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> deq[MAX_N];</span><br><span class="line">    <span class="keyword">int</span> *ret = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * (numsSize -k + <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">int</span> s =<span class="number">0</span>,  t = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; numsSize; ++i)&#123;</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">         *判断当前队列是否有多余的值，即队首的元素可能</span><br><span class="line">         *不在(i-k+1, i)这个窗口内</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">if</span> (s &lt; t &amp;&amp; i - k == deq[s])</span><br><span class="line">                s++;</span><br><span class="line">        <span class="comment">/*当前要进队的元素，队尾的元素比它小，则出队*/</span></span><br><span class="line">        <span class="keyword">while</span>(s &lt; t &amp;&amp; nums[deq[t<span class="number">-1</span>]] &lt; nums[i])</span><br><span class="line">            t--;</span><br><span class="line">        deq[t++] = i;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (i &gt;= k<span class="number">-1</span>)&#123;</span><br><span class="line">            *(ret + i- k + <span class="number">1</span>) = nums[deq[s]];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    *returnSize = numsSize- k + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[]=&#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> ret;</span><br><span class="line">    <span class="keyword">int</span> *out = maxSlidingWindow(a, <span class="keyword">sizeof</span>(a)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>), <span class="number">3</span>, &amp;ret);</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i= <span class="number">0</span>; i &lt; ret; i++)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, *(out+i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(out);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法-单调栈-单调队列/" rel="tag">#算法 单调栈 单调队列</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/09/单调栈/" rel="prev" title="单调栈">
+                单调栈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/11/08/栈和队列的应用/"
+           data-title="栈和队列的应用" data-url="http://louisyw.github.io/2015/11/08/栈和队列的应用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="gcc" />
+          <p class="site-author-name" itemprop="name">gcc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="h" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 0
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="t" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 1
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="t" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 2
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="p" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 3
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="s" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 4
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href=":" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 5
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 6
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 7
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="g" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 8
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="i" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 9
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="t" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 10
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="h" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 11
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="u" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 12
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="b" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 13
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="." target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 14
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="c" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 15
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="o" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 16
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="m" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 17
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="/" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 18
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="l" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 19
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="o" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 20
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="u" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 21
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="i" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 22
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="s" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 23
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="y" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 24
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="w" target="_blank">
+                  
+                    <i class="fa fa-globe"></i> 25
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#栈和队列的应用"><span class="nav-number">1.</span> <span class="nav-text">栈和队列的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单调栈"><span class="nav-number">1.1.</span> <span class="nav-text">单调栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单调队列"><span class="nav-number">1.2.</span> <span class="nav-text">单调队列</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gcc</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"louisyw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  
+
+
+
+<!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+</body>
+</html>
