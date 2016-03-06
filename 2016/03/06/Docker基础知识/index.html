@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Docker总结 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="主要介绍Docker的基本知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker总结">
+<meta property="og:url" content="http://yoursite.com/2016/03/06/Docker基础知识/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="主要介绍Docker的基本知识">
+<meta property="og:updated_time" content="2016-03-03T07:29:34.138Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker总结">
+<meta name="twitter:description" content="主要介绍Docker的基本知识">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Docker基础知识" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/06/Docker基础知识/" class="article-date">
+  <time datetime="2016-03-06T03:42:44.894Z" itemprop="datePublished">2016-03-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docker/">Docker</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主要介绍Docker的基本知识<br><a id="more"></a></p>
+<hr>
+<h1 id="Docker基础知识"><a href="#Docker基础知识" class="headerlink" title="Docker基础知识"></a>Docker基础知识</h1><p><a href="https://docs.docker.com/" target="_blank" rel="external">Docker文档</a><br><a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="external">Docker基础知识</a><br><a href="http://www.simapple.com/docker-tutorial" target="_blank" rel="external">用Docker创建一个具体应用的实例</a><br><a href="http://www.simapple.com/docker-commandline" target="_blank" rel="external">讲解Docker命令的网站</a></p>
+<p>三个基本的概念：镜像，容器，仓库</p>
+<h1 id="常用的docker命令"><a href="#常用的docker命令" class="headerlink" title="常用的docker命令"></a>常用的docker命令</h1><h2 id="docker镜像"><a href="#docker镜像" class="headerlink" title="docker镜像"></a>docker镜像</h2><h3 id="docker-run"><a href="#docker-run" class="headerlink" title="docker run"></a>docker run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -t -i ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>docker run - 运行一个容器</li>
+<li>-t - 分配一个（伪） tty (link is external)</li>
+<li>-i - 开发输入(so we can interact with it)</li>
+<li>ubuntu - 使用ubuntu基础镜像</li>
+<li>/bin/bash - 运行bash shell</li>
+</ul>
+<p>复制粘贴现在运行的容器 ID (30557c9017ec in my case). 运行docker diff <container id=""></container></p>
+<p>在对容器进行了安装应用,修改文件等后记得重新提交镜像<br>在容器中添加    json    和    gem    两个应用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@0b2616b0e5a8:/<span class="comment">#	gem	install	json</span></span><br></pre></td></tr></table></figure>
+<p>当结束后,我们使用    exit    来退出,现在我们的容器已经被我们改变了,使用         docker    commit     命令来提交<br>更新后的副本。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo	docker	commit	-m	<span class="string">"changes"</span>	<span class="_">-a</span>	<span class="string">"name"</span>	0b2616b0e5a8	ouruser/sinatra:v2</span><br></pre></td></tr></table></figure></p>
+<p>其中,     -m 来指定提交的说明信息,跟我们使用的版本控制工具一样;     -a         可以指定更新的用户信息;之后是用来创建镜像的容器的ID;最后指定目标镜像的仓库名和tag信息。创建成功后会返回这个镜像的ID信息。</p>
+<h3 id="dockerfile常见镜像"><a href="#dockerfile常见镜像" class="headerlink" title="dockerfile常见镜像"></a>dockerfile常见镜像</h3><p>使用docker    commit         来扩展一个镜像比较简单,但是不方便在一个团队中分享。我们可以使用         docker<br>build    来创建一个新的镜像。为此,首先需要创建一个Dockerfile,包含一些如何创建镜像的指令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$	sudo	docker	build	-t=<span class="string">"ouruser/sinatra:v2"</span>	.</span><br></pre></td></tr></table></figure>
+<p>其中-t标记来添加tag,指定新的镜像的用户信息。“.”    是    Dockerfile    所在的路径(当前目录),也可以替换为一个具体的Dockerfile的路径。<br>此外,还可以利用         ADD         命令复制本地文件到镜像;用         EXPOSE         命令来向外部开放端口;用         CMD         命令来<br>描述容器启动后运行的程序等。例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#	put	my	local	web	site	in	myApp	folder	to	/var/www</span></span><br><span class="line">ADD	myApp	/var/www</span><br><span class="line"><span class="comment">#	expose	httpd	port</span></span><br><span class="line">EXPOSE	80</span><br><span class="line"><span class="comment">#	the	command	to	run</span></span><br><span class="line">CMD	[<span class="string">"/usr/sbin/apachectl"</span>,	<span class="string">"-D"</span>,	<span class="string">"FOREGROUND"</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><p>如果要移除本地的镜像,可以使用docker    rmi命令。注意docker    rm     命令是移除容器</p>
+<p><strong>注意:在删除镜像之前要先用     docker    rm     删掉依赖于这个镜像的所有容器。</strong></p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>简单的说,容器是独立运行的一个或一组应用,以及它们的运行态环境。对应的,虚拟机可以理解为模拟运行的一整套操作系统(提供了运行态环境和其他系统环境)和跑在上面的应用。</p>
+<p>启动容器有两种方式,一种是基于镜像新建一个容器并启动,另外一个是将在终止状态(stopped)的容器重新启动。<br>因为Docker的容器实在太轻量级了,很多时候用户都是随时删除和新创建容器。</p>
+<h3 id="新建并启动"><a href="#新建并启动" class="headerlink" title="新建并启动"></a>新建并启动</h3><p>所需要的命令主要为         docker    run     。</p>
+<h3 id="启动已终止容器"><a href="#启动已终止容器" class="headerlink" title="启动已终止容器"></a>启动已终止容器</h3><p>可以利用docker    start         命令,直接将一个已经终止的容器启动运行。</p>
+<h3 id="后台-background-运行"><a href="#后台-background-运行" class="headerlink" title="后台(background)运行"></a>后台(background)运行</h3><p>更多的时候,需要让    Docker在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时,可以通过添加    -d         参数来实现。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo	docker	run	<span class="_">-d</span>	ubuntu:14.04	/bin/sh	-c	<span class="string">"while	true;	do	echo	hello	world;	sleep	1;	done"</span></span><br></pre></td></tr></table></figure></p>
+<p>此时容器会在后台运行并不会把输出的结果(STDOUT)打印到宿主机上面(输出结果可以用docker    logs    查<br>看)。</p>
+<h3 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h3><p>可以使用         docker    stop         来终止一个运行中的容器。<br>此外,当Docker容器中指定的应用终结时,容器也自动终止。    例如对于上一章节中只启动了一个终端的容<br>器,用户通过         exit         命令或         Ctrl+d         来退出终端时,所创建的容器立刻终止。</p>
+<p>此外,     docker    restart    命令会将一个运行态的容器终止,然后再重新启动它。</p>
+<p>终止状态的容器可以用docker    ps    -a    命令看到。<br>当前运行的容器可以用docker ps命令看到哦。</p>
+<h3 id="进入后台运行的容器"><a href="#进入后台运行的容器" class="headerlink" title="进入后台运行的容器"></a>进入后台运行的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">louis@uuu:~$ sudo docker ps <span class="_">-a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES</span><br><span class="line">598babdcf920        ded5e192a685        <span class="string">"/bin/bash"</span>              4 days ago          Exited (0) 4 days ago                           high_raman</span><br><span class="line">5d3d10c408a8        ded5e192a685        <span class="string">"/bin/bash"</span>              4 days ago          Exited (1) 4 days ago                           goofy_mahavira</span><br><span class="line">f3c57e6f9f9b        ubuntu:14.04        <span class="string">"/bin/sh -c 'while tr"</span>   12 weeks ago        Exited (137) 12 weeks ago                       gigantic_fermi</span><br><span class="line">311a073ffcf8        centos              <span class="string">"/bin/bash"</span>              3 months ago        Exited (0) 3 months ago                         focused_kalam</span><br></pre></td></tr></table></figure>
+<p>docker attach</p>
+<h1 id="Docker数据卷"><a href="#Docker数据卷" class="headerlink" title="Docker数据卷"></a>Docker数据卷</h1><p><a href="http://blog.csdn.net/junjun16818/article/details/30655543" target="_blank" rel="external">介绍数据卷</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/06/Docker基础知识/" data-id="cilg0l8zt0000ejjxmj75dnc5" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/">Docker</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/11/12/c++中const的总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">C++ const总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构-算法/">数据结构 算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/数据结构-算法/" style="font-size: 10px;">数据结构 算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/06/Docker基础知识/">Docker总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/12/c++中const的总结/">C++ const总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/12/单调栈的应用 /">单调栈的应用</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/09/单调栈/">单调栈</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

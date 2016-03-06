@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>单调栈 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近在做题目的时候，发现了一种很好的数据结构：单调栈。惊呼：原来栈可以这么用，瞬间觉得自己对栈的认识太浅薄了，特此记录下来，时刻紧记着曾经浅薄的日子，迈向geek的日子。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单调栈">
+<meta property="og:url" content="http://yoursite.com/2015/11/09/单调栈/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近在做题目的时候，发现了一种很好的数据结构：单调栈。惊呼：原来栈可以这么用，瞬间觉得自己对栈的认识太浅薄了，特此记录下来，时刻紧记着曾经浅薄的日子，迈向geek的日子。">
+<meta property="og:image" content="http://img-storage.qiniudn.com/15-11-9/3009279.jpg">
+<meta property="og:updated_time" content="2016-03-03T03:27:33.449Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单调栈">
+<meta name="twitter:description" content="最近在做题目的时候，发现了一种很好的数据结构：单调栈。惊呼：原来栈可以这么用，瞬间觉得自己对栈的认识太浅薄了，特此记录下来，时刻紧记着曾经浅薄的日子，迈向geek的日子。">
+<meta name="twitter:image" content="http://img-storage.qiniudn.com/15-11-9/3009279.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-单调栈" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/09/单调栈/" class="article-date">
+  <time datetime="2015-11-09T07:58:19.000Z" itemprop="datePublished">2015-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      单调栈
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在做题目的时候，发现了一种很好的数据结构：<strong>单调栈</strong>。惊呼：原来栈可以这么用，瞬间觉得自己对栈的认识太浅薄了，特此记录下来，时刻紧记着曾经浅薄的日子，迈向geek的日子。</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h1><p>以前自己对栈的认识紧限于陷入后出的数据结构，实现一个逆序输出。直至遇到了这道题目，让我对栈有了重新的认识。</p>
+<hr>
+<h2 id="单调栈的原理"><a href="#单调栈的原理" class="headerlink" title="单调栈的原理"></a>单调栈的原理</h2><hr>
+<p>题目如下：<br>给出一个柱形统计图(histogram),它的每个bar的宽度为1，现在需求出柱形图中所能组成的矩形的最大面积。例如:6 2 1 5 6 2 3 ,其中7代表统计图中的bar的个数，后面的数据分别表示每个bar的高度。</p>
+<p><img src="http://img-storage.qiniudn.com/15-11-9/3009279.jpg" alt="histogram"></p>
+<p>先说一下自己难道题目的第一反应，分别计算出每个高度可以向左和向右扩展的长度，然后计算出每个高度对应的矩形的面积，得到最大值。显然这是一个$O(n^2)$复杂度的算法。</p>
+<p>那么有没有更简单的算法了：当然有，<strong>单调栈</strong><br>先介绍以下单调栈的执行过程：<br>从第一个bar开始往后扫描，扫描过程满足以下规则<br>(1)如果全部元素入栈，则将栈弹空；<br>(2)如果当前的bar的高度大于栈顶bar的高度，则将当前bar的下标入栈；<br>(3)否则执行出栈操作，直到栈顶的元素小于当前要入栈的元素，记录弹出下标对应的bar的高度，并计算出一个面积，比较这个面积与当前的最大面积，最后得到最大面积。</p>
+<p>栈中的保存的元素为(高度，起始的索引号)<br>算法的执行过程为：</p>
+<ol>
+<li>初始化时，栈底的元素为<strong>(0,0)</strong>，<strong>i = 1</strong>,<strong>面积s = 0</strong>,<strong>上一次的高度lastHeight = 0</strong>；</li>
+<li>此时 <strong>i = 1</strong>,加入第一个元素(2,1),满足条件(1)，故入栈，栈中的元素为<strong>(0,0),(2,1)</strong>;</li>
+<li><strong>i=2</strong> ,加入第二个元素(1,2)，满足条件(2),将要出栈，$面积 = (i-startindex)<em>height$，计算出的面积为 s = 2,lastHeight = 2 &gt; 1,将(1,1)入栈，<em>*栈中的元素为(0,0), (1,1)</em></em>;</li>
+<li><strong>i = 3</strong>  (5,3),入栈<strong>栈中的元素为(0,0), (1,1),(5,3)</strong>;</li>
+<li><strong>i = 4</strong>  (6,4),入栈<strong>栈中的元素为(0,0), (1,1),(5,3),(6,4)</strong>;</li>
+<li><strong>i = 5</strong>  (2,5),出栈，(6,4)出栈计算面积$s_1 = (5-4)<em>6 = 6$,(5,3)出栈$s_1 = (5-3)</em>5 = 10$,到(1,1)时， 1 &lt; 2,故将(2,3)入栈，此时的元素为(0,0),(1,1),(2,3);</li>
+<li><strong>i = 6</strong>, (3,6),入栈，此时全部入栈，将栈弹空；</li>
+</ol>
+<hr>
+<h2 id="单调栈的实现"><a href="#单调栈的实现" class="headerlink" title="单调栈的实现"></a>单调栈的实现</h2><p>具体实现的代码为：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> length 9</span></span><br><span class="line"><span class="keyword">struct</span> ele&#123;</span><br><span class="line">	<span class="keyword">int</span> height;</span><br><span class="line">	<span class="keyword">int</span> startIndex;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> ele node;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">	node <span class="built_in">stack</span>[length];</span><br><span class="line">	<span class="keyword">int</span> top = <span class="number">0</span>;   <span class="comment">//top记录下一个位置</span></span><br><span class="line">	<span class="keyword">int</span> index = <span class="number">0</span>;  <span class="comment">//遍历数组</span></span><br><span class="line">	<span class="keyword">int</span> height[length] = &#123;<span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;<span class="comment">//第一个元素代表数组的长度</span></span><br><span class="line">	<span class="keyword">int</span> max_rect = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> rect;</span><br><span class="line">	<span class="built_in">stack</span>[<span class="number">0</span>].height = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">stack</span>[<span class="number">0</span>].startIndex = <span class="number">1</span>;</span><br><span class="line">	top++;</span><br><span class="line">	<span class="keyword">for</span> (index = <span class="number">1</span>; index &lt;= height[<span class="number">0</span>]; index++)&#123;</span><br><span class="line">	    <span class="comment">/*栈顶元素小于即将入栈的高度*/</span></span><br><span class="line">		<span class="keyword">if</span> (height[index] &gt;= <span class="built_in">stack</span>[top - <span class="number">1</span>].height)&#123;</span><br><span class="line">			<span class="built_in">stack</span>[top].height = height[index];</span><br><span class="line">			<span class="built_in">stack</span>[top].startIndex = index;</span><br><span class="line">			top++;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">while</span>(<span class="built_in">stack</span>[top - <span class="number">1</span>].height &gt; height[index] &amp;&amp; top &gt; <span class="number">1</span>)&#123;</span><br><span class="line">				rect = (index - (<span class="built_in">stack</span>[top - <span class="number">1</span>].startIndex))*(<span class="built_in">stack</span>[top - <span class="number">1</span>].height);</span><br><span class="line">				<span class="keyword">if</span> (rect &gt; max_rect)</span><br><span class="line">					max_rect = rect;</span><br><span class="line">				top--;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">/*将新的高度入栈，此时栈顶的元素高度&lt;=当前高度，所以此时的新的高度的startIndex = 刚出栈元素的startIndex*/</span></span><br><span class="line">			<span class="comment">//stack[top].startIndex = stack[top -1].startIndex;</span></span><br><span class="line">			<span class="built_in">stack</span>[top].height = height[index];</span><br><span class="line">			top++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (top &gt; <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">stack</span>[top - <span class="number">1</span>].height &gt; height[index] &amp;&amp; top &gt; <span class="number">1</span>)&#123;</span><br><span class="line">			rect = (index - (<span class="built_in">stack</span>[top - <span class="number">1</span>].startIndex))*(<span class="built_in">stack</span>[top - <span class="number">1</span>].height);</span><br><span class="line">			<span class="keyword">if</span> (rect &gt; max_rect)</span><br><span class="line">				max_rect = rect;</span><br><span class="line">			top--;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"the largest rect is %d.\n"</span>,max_rect);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="leetcode-Largest-Rectangle-in-Histogram"><a href="#leetcode-Largest-Rectangle-in-Histogram" class="headerlink" title="leetcode Largest Rectangle in Histogram"></a><em>leetcode</em> <a href="https://leetcode.com/problems/largest-rectangle-in-histogram/" target="_blank" rel="external">Largest Rectangle in Histogram</a></h2><p>代码如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>* height, <span class="keyword">int</span> heightSize)</span></span>&#123;</span><br><span class="line">	<span class="keyword">typedef</span> <span class="keyword">struct</span> ele&#123;</span><br><span class="line">	<span class="keyword">int</span> heig;</span><br><span class="line">        <span class="keyword">int</span> startIndex;</span><br><span class="line">    	&#125;node;</span><br><span class="line">    	node <span class="built_in">stack</span>[heightSize+<span class="number">1</span>];</span><br><span class="line">    	<span class="keyword">int</span> top = <span class="number">0</span>;</span><br><span class="line">    	<span class="built_in">stack</span>[<span class="number">0</span>].heig = <span class="number">0</span>;</span><br><span class="line">    	<span class="built_in">stack</span>[<span class="number">0</span>].startIndex = <span class="number">0</span>;</span><br><span class="line">    	top++;</span><br><span class="line">    	<span class="keyword">int</span> index,rect;</span><br><span class="line">    	<span class="keyword">int</span> max_rect = <span class="number">0</span>;</span><br><span class="line">    	<span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; heightSize; index++)&#123;</span><br><span class="line">        	<span class="keyword">if</span>(height[index] &gt;= <span class="built_in">stack</span>[top <span class="number">-1</span>].heig)&#123;</span><br><span class="line">            	<span class="built_in">stack</span>[top].heig = height[index];</span><br><span class="line">            	<span class="built_in">stack</span>[top].startIndex = index;</span><br><span class="line">            	top++;</span><br><span class="line">        	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        		<span class="keyword">while</span>(height[index] &lt; <span class="built_in">stack</span>[top <span class="number">-1</span>].heig &amp;&amp; top &gt; <span class="number">0</span>)&#123;</span><br><span class="line">                		rect = (index -<span class="built_in">stack</span>[top<span class="number">-1</span>].startIndex) * <span class="built_in">stack</span>[top <span class="number">-1</span>].heig;</span><br><span class="line">                		top--;</span><br><span class="line">                		<span class="keyword">if</span> (rect &gt; max_rect)</span><br><span class="line">                    			max_rect = rect;</span><br><span class="line">            		&#125;	</span><br><span class="line">            		<span class="comment">//int start = stack[top].startIndex;</span></span><br><span class="line">            		<span class="comment">//stack[top].startIndex = start;</span></span><br><span class="line">			<span class="comment">/*此处的startIndex是刚弹出的元素的startIndex，只需要改变heig*/</span></span><br><span class="line">            		<span class="built_in">stack</span>[top].heig = height[index];</span><br><span class="line">            		top++;</span><br><span class="line">        	&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">while</span>(top &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        	rect = (index -<span class="built_in">stack</span>[top<span class="number">-1</span>].startIndex) * <span class="built_in">stack</span>[top <span class="number">-1</span>].heig;</span><br><span class="line">        	top--;</span><br><span class="line">        	<span class="keyword">if</span> (rect &gt; max_rect)</span><br><span class="line">            		max_rect = rect;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> max_rect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/09/单调栈/" data-id="cilg0l90n000cejjxxb1y2h9w" class="article-share-link">Partager</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构-算法/">数据结构 算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/11/12/单调栈的应用 /" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          单调栈的应用
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Catégories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Mot-clés</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构-算法/">数据结构 算法</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Nuage de mot-clés</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/数据结构/" style="font-size: 10px;">数据结构</a> <a href="/tags/数据结构-算法/" style="font-size: 10px;">数据结构 算法</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/06/Docker基础知识/">Docker总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/12/c++中const的总结/">C++ const总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/12/单调栈的应用 /">单调栈的应用</a>
+          </li>
+        
+          <li>
+            <a href="/2015/11/09/单调栈/">单调栈</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+
+<!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+</body>
+</html>
