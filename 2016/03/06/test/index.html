@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Hexo</title>
+  <title>检验mathjax | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="检验mathjax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="检验mathjax">
+<meta property="og:url" content="http://yoursite.com/2016/03/06/test/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description">
+<meta property="og:description" content="检验mathjax">
+<meta property="og:updated_time" content="2016-03-06T03:41:40.054Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description">
+<meta name="twitter:title" content="检验mathjax">
+<meta name="twitter:description" content="检验mathjax">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -62,39 +63,49 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2016/03/06/test/" class="archive-article-date">
-  <time datetime="2016-03-06T03:41:40.106Z" itemprop="datePublished">Mar 6</time>
+        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/06/test/" class="article-date">
+  <time datetime="2016-03-06T03:41:40.106Z" itemprop="datePublished">2016-03-06</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/03/06/test/">检验mathjax</a>
+    <h1 class="article-title" itemprop="name">
+      检验mathjax
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>检验mathjax</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>#公式<br>$a= b_i + c_i$</p>
+<p>$$a_i = b_i + c_i$$</p>
+<span>$$f(n) = 
+\begin{cases} 
+&Tab;n/2,  &amp; \text{if $n$ is even} \\ 
+&Tab;3n+1, &amp; \text{if $n$ is odd}  \\ 
+\end{cases}$$</span><!-- Has MathJax -->
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/06/test/" data-id="cilg0gxma0000asjxp21ym4f0" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
+  
+    
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         
@@ -186,5 +197,23 @@
 <script src="/js/script.js"></script>
 
   </div>
+
+<!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
 </body>
 </html>
