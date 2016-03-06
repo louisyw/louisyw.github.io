@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>C++ const总结 | Hexo</title>
+  <title>memset和fill的区别 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="c++中const的总结c++中const修饰指针，第一种是让指针指向一个常量对象，这样可以防止指针改变指向对象的值；还有一种是指正本身声明为常量，这样可以防止改变指针指向的位置。">
+  <meta name="description" content="memset和fill函数的用法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ const总结">
-<meta property="og:url" content="http://yoursite.com/2015/11/12/c++中const的总结/index.html">
+<meta property="og:title" content="memset和fill的区别">
+<meta property="og:url" content="http://yoursite.com/2016/03/06/memset和fill函数的用法/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="c++中const的总结c++中const修饰指针，第一种是让指针指向一个常量对象，这样可以防止指针改变指向对象的值；还有一种是指正本身声明为常量，这样可以防止改变指针指向的位置。">
-<meta property="og:updated_time" content="2016-03-03T07:37:38.254Z">
+<meta property="og:description" content="memset和fill函数的用法">
+<meta property="og:updated_time" content="2016-03-03T07:30:06.674Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++ const总结">
-<meta name="twitter:description" content="c++中const的总结c++中const修饰指针，第一种是让指针指向一个常量对象，这样可以防止指针改变指向对象的值；还有一种是指正本身声明为常量，这样可以防止改变指针指向的位置。">
+<meta name="twitter:title" content="memset和fill的区别">
+<meta name="twitter:description" content="memset和fill函数的用法">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -63,12 +63,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-c++中const的总结" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-memset和fill函数的用法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/11/12/c++中const的总结/" class="article-date">
-  <time datetime="2015-11-12T12:51:00.000Z" itemprop="datePublished">2015-11-12</time>
+    <a href="/2016/03/06/memset和fill函数的用法/" class="article-date">
+  <time datetime="2016-03-06T03:45:13.878Z" itemprop="datePublished">2016-03-06</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c/">c++</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -77,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      C++ const总结
+      memset和fill的区别
     </h1>
   
 
@@ -85,51 +89,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>c++中const的总结<br>c++中const修饰指针，第一种是让指针指向一个常量对象，这样可以防止指针改变指向对象的值；还有一种是指正本身声明为常量，这样可以防止改变指针指向的位置。<br><a id="more"></a></p>
-<h2 id="const之间的赋值"><a href="#const之间的赋值" class="headerlink" title="const之间的赋值"></a>const之间的赋值</h2><ol>
-<li><p>指向常量的指针</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age = <span class="number">39</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *pt = &amp;age;</span><br></pre></td></tr></table></figure>
-<p>此处不能通过指针pt来修改pt指向的内容，下面的行为都是不允许的</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*pt += <span class="number">1</span>;</span><br><span class="line"><span class="built_in">cin</span> &gt;&gt; *pt;</span><br></pre></td></tr></table></figure>
-<p>然而这并不意味着pt指向的内容就是一个常量，</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*pt = <span class="number">20</span>;    <span class="comment">//invalid</span></span><br><span class="line">age = <span class="number">20</span>;    <span class="comment">//valid</span></span><br></pre></td></tr></table></figure>
-<p>另外，此处还可以将pt指向其他的内容；</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> age1 = <span class="number">100</span>;</span><br><span class="line">pt = &amp;age1;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="常用的c-const总结"><a href="#常用的c-const总结" class="headerlink" title="常用的c++ const总结"></a>常用的c++ const总结</h2><table>
-<thead>
-<tr>
-<th>数据成员</th>
-<th style="text-align:center">非const成员函数</th>
-<th style="text-align:center">const成员函数</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>非const数据成员</td>
-<td style="text-align:center">可以引用，也可以改值</td>
-<td style="text-align:center">可引用，不可改值</td>
-</tr>
-<tr>
-<td>const数据成员</td>
-<td style="text-align:center">可以引用，不可改值</td>
-<td style="text-align:center">可引用，不可改值</td>
-</tr>
-<tr>
-<td>const对象的数据成员</td>
-<td style="text-align:center">不允许</td>
-<td style="text-align:center">可引用，不可改值</td>
-</tr>
-</tbody>
-</table>
-<p>这里有有篇写的很好的const的总结，文中详细介绍了const的各种修饰用法，可以看一看<br><a href="http://www.cnblogs.com/jiabei521/p/3335676.html" target="_blank" rel="external">const详尽总结1</a></p>
+        <p>memset和fill函数的用法<br><a id="more"></a></p>
 <hr>
-<h2 id="隐含的this指针"><a href="#隐含的this指针" class="headerlink" title="隐含的this指针"></a>隐含的this指针</h2>
+<h2 id="memset用法详解"><a href="#memset用法详解" class="headerlink" title="memset用法详解"></a>memset用法详解</h2><p>void <em>memset(void </em>s, int ch, unsigned n);<br>将s所指向的某一块内存中的每个字节的内容全部设置为ch指定的ASCII值,块的大小由第三个参数指定,这个函数通常为新申请的内存做初始化工作,其返回值为指向S的指针。</p>
+<p>1.memset是按<strong>字节填充</strong>,memset是对每个字节赋值，而int有4字节(32位)<br>比如这样,memset(a,1,sizeof(a)), a为整数，<br>则a中的每个元素都被赋值成为2进制数为，00000001 00000001 00000001 00000001，的数<br>转换成10进制就是16843009<br>所以，一般用memset对数组赋0或-1，赋其他的值就要用循环来实现.</p>
+<h2 id="fill用法详解"><a href="#fill用法详解" class="headerlink" title="fill用法详解"></a>fill用法详解</h2><p>将一个区间的元素都赋予val值。函数参数：fill(first,last,val);//first为容器的首迭代器，last为容器的末迭代器，val为将要替换的值。</p>
+<p>fill_n函数的作用是：给你一个起始点，然后再给你一个数值count和val。把从起始点开始依次赋予count个元素val的值<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; myvector (<span class="number">8</span>,<span class="number">10</span>);        <span class="comment">// myvector: 10 10 10 10 10 10 10 10</span></span><br><span class="line"></span><br><span class="line">  fill_n (myvector.begin(),<span class="number">4</span>,<span class="number">20</span>);     <span class="comment">// myvector: 20 20 20 20 10 10 10 10</span></span><br><span class="line">  fill_n (myvector.begin()+<span class="number">3</span>,<span class="number">3</span>,<span class="number">33</span>);   <span class="comment">// myvector: 20 20 20 33 33 33 10 10</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"myvector contains:"</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it=myvector.begin(); it!=myvector.end(); ++it)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; *it;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/12/c++中const的总结/" data-id="cilg0l9020001ejjxjwvfgxl7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/06/memset和fill函数的用法/" data-id="cilg0n4ps0001ftjxtkzxth3m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li></ul>
@@ -140,19 +110,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/11/14/shell基础知识/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          shell与shellscript
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/11/12/单调栈的应用 /" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/03/06/Docker基础知识/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">单调栈的应用</div>
+      <div class="article-nav-title">Docker总结</div>
     </a>
   
 </nav>
