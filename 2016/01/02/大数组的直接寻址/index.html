@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="图的用法总结,包括图的表示方法，单源最短路径，任意两点间的最短距离和最小生成树">
+<meta name="description" content="利用哈希，解决大数组的直接寻址">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图中的乐趣">
-<meta property="og:url" content="http://louisyw.github.io/2016/03/06/图的用法总结/index.html">
+<meta property="og:title" content="算法导论大数组的直接寻址表">
+<meta property="og:url" content="http://louisyw.github.io/2016/01/02/大数组的直接寻址/index.html">
 <meta property="og:site_name" content="Louis's Blog">
-<meta property="og:description" content="图的用法总结,包括图的表示方法，单源最短路径，任意两点间的最短距离和最小生成树">
-<meta property="og:updated_time" content="2016-03-03T07:28:16.706Z">
+<meta property="og:description" content="利用哈希，解决大数组的直接寻址">
+<meta property="og:updated_time" content="2016-03-06T08:23:59.853Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="图中的乐趣">
-<meta name="twitter:description" content="图的用法总结,包括图的表示方法，单源最短路径，任意两点间的最短距离和最小生成树">
+<meta name="twitter:title" content="算法导论大数组的直接寻址表">
+<meta name="twitter:description" content="利用哈希，解决大数组的直接寻址">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> 图中的乐趣 | Louis's Blog </title>
+  <title> 算法导论大数组的直接寻址表 | Louis's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -226,7 +226,7 @@
             
             
               
-                图中的乐趣
+                算法导论大数组的直接寻址表
               
             
           </h1>
@@ -238,8 +238,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-06T11:50:36+08:00" content="2016-03-06">
-              2016-03-06
+            <time itemprop="dateCreated" datetime="2016-01-02T19:00:00+08:00" content="2016-01-02">
+              2016-01-02
             </time>
           </span>
 
@@ -268,8 +268,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/06/图的用法总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/06/图的用法总结/" itemprop="commentsCount"></span>
+                <a href="/2016/01/02/大数组的直接寻址/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/02/大数组的直接寻址/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,20 +291,15 @@
       
 
       
-        <p>图的用法总结,包括图的表示方法，单源最短路径，任意两点间的最短距离和最小生成树</p>
-<a id="more"></a>
+        <p>利用哈希，解决大数组的直接寻址<br><a id="more"></a></p>
+<h1 id="大数组的直接寻址"><a href="#大数组的直接寻址" class="headerlink" title="大数组的直接寻址"></a>大数组的直接寻址</h1><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>我们希望通过利用在一个非常大的数组上直接寻址的方式来实现字典。开始时，该数组中可能包含废料，但要对整个数组进行初始化是不实际的，因为该组的规模太大。请给出在大数组上实现直接寻址字典的方案。每个存储的对象占用O(1)空间；操作SEARCH、INSERT和DELETE的时间为O(1)；对数据结构初始化的时间为O(1)。</p>
+<h1 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h1><ul>
+<li>对一个很大的数组，受到数组大小的影响，实现数组初始化是相当困难的。因此，在数组中很多位置上的数据有可能是垃圾数据，并不是对我们有用的，由于没有初始化，我们很难判定对应的索引上的值是否有效。</li>
+<li>在书中给出了提示，利用一个附加数组，处理方式类似与栈，其大小等于市集存储在字典中的关键字数目，以帮助确定大数组中某个给定的项是否有效。<br><strong>其本质意思就是说，建立两层索引，第一层由索引确定的值作为第二层的索引，若果该索引确实存在，就证明给定的项存在</strong></li>
+</ul>
 <hr>
-<h1 id="图中的乐趣"><a href="#图中的乐趣" class="headerlink" title="图中的乐趣"></a>图中的乐趣</h1><h2 id="图的表示方法"><a href="#图的表示方法" class="headerlink" title="图的表示方法"></a>图的表示方法</h2><p>图的表示方法有邻接矩阵和邻接表的方法</p>
-<h2 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h2><p>介绍最小生成树的一篇好文章<a href="http://www.cnblogs.com/biyeymyhjob/archive/2012/07/30/2615542.html" target="_blank" rel="external">http://www.cnblogs.com/biyeymyhjob/archive/2012/07/30/2615542.html</a></p>
-<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><h3 id="Bellman-Ford算法"><a href="#Bellman-Ford算法" class="headerlink" title="Bellman-Ford算法"></a>Bellman-Ford算法</h3><h4 id="Bellman-Ford算法的流程如下："><a href="#Bellman-Ford算法的流程如下：" class="headerlink" title="Bellman-Ford算法的流程如下："></a>Bellman-Ford算法的流程如下：</h4><p>给定图G(V, E)（其中V、E分别为图G的顶点集与边集），源点s，数组Distant[i]记录从源点s到顶点i的路径长度，初始化数组Distant[n]为INF, Distant[s]为0；<br>以下操作循环执行至多n-1次，n为顶点数：<br>对于每一条边e(u, v)，如果Distant[u] + w(u, v) &lt; Distant[v]，则另Distant[v] = Distant[u]+w(u, v)。w(u, v)为边e(u,v)的权值；<br>若上述操作没有对Distant进行更新，说明最短路径已经查找完毕，或者部分点不可达，跳出循环。否则执行下次循环；<br>为了检测图中是否存在负环路，即权值之和小于0的环路。对于每一条边e(u, v)，如果存在$Distant[u] + w(u, v) &lt; Distant[v]$<br>的边，则图中存在负环路，即是说改图无法求出单源最短路径。否则数组Distant[n]中记录的就是源点s到各顶点的最短路径长度。<br>可知，Bellman-Ford算法寻找单源最短路径的时间复杂度为O(V*E).</p>
-<h4 id="算法的步骤为"><a href="#算法的步骤为" class="headerlink" title="算法的步骤为"></a>算法的步骤为</h4><p>第一，初始化所有点。每一个点保存一个值，表示从原点到达这个点的距离，将原点的值设为0，其它的点的值设为无穷大（表示不可达）。<br>第二，进行循环，循环下标为从1到V-1（V等于图中顶点的个数）。在循环内部，遍历所有的边，进行松弛计算。<br>第三，遍历途中所有的边（edge（u，v）），判断是否存在这样情况（负圈）：<br>d（v） &gt; d (u) + w(u,v)，则返回false，表示途中存在从源点可达的权为负的回路。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> cost[MAX_V][MAX_V];   <span class="comment">//cost[u][v]表示边e=(u,v)的权值</span></span><br><span class="line"><span class="keyword">int</span> d[MAX_V];             <span class="comment">//顶点s出发的距离</span></span><br><span class="line"><span class="keyword">bool</span> used[MAX_V];         <span class="comment">//已经使用过的图</span></span><br><span class="line"><span class="keyword">int</span> V;                    <span class="comment">//顶点数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123; </span><br><span class="line">        fill(d, d+V, MAX_INT);</span><br><span class="line">        fill(used, used + V, <span class="literal">false</span>);</span><br><span class="line">        d[s] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> v = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//找出距离最小的没有访问过的节点</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; V; u++)&#123;</span><br><span class="line">                        <span class="keyword">if</span> (!used[u] &amp;&amp; (v == <span class="number">-1</span> || d[u] &lt; d[v]))</span><br><span class="line">                                v = u;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (v == <span class="number">-1</span>)  <span class="keyword">break</span>;</span><br><span class="line">                used[v] = <span class="literal">true</span>;</span><br><span class="line">                <span class="comment">//根据找出的节点更新剩余的节点的距离</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> u = <span class="number">0</span>; u &lt; V; u++)&#123;</span><br><span class="line">                        d[u] = min(d[u], d[v] + cost[v][u]);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> edge &#123;<span class="keyword">int</span> from, to, cost&#125;;</span><br><span class="line"></span><br><span class="line">edge es[MAX_E];   <span class="comment">//边</span></span><br><span class="line"><span class="keyword">int</span> d[MAX_V];</span><br><span class="line"><span class="keyword">int</span> V, E;    <span class="comment">//顶点数，边数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shortest_path</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; V; i++) d[i] = INF;</span><br><span class="line">        d[s] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">                <span class="keyword">bool</span> update = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; E; i++)&#123;</span><br><span class="line">                        edge e = es[i];</span><br><span class="line">                        <span class="keyword">if</span> (d[e.from] != INF &amp;&amp; d[e.to]&gt;d[e.from]+e.cost)&#123;</span><br><span class="line">                                d[e.to] = d[e.from] + e.cost;</span><br><span class="line">                                update = <span class="literal">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (!update) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">find_negative_loop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">memset</span>(d, <span class="number">0</span>, <span class="keyword">sizeof</span>(d));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; V; i++)&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; E; j++)&#123;</span><br><span class="line">                        edge e = es[j];</span><br><span class="line">                        <span class="keyword">if</span> (d[e.to] &gt; d[e.from] + e.cost)&#123;</span><br><span class="line">                                d[e.to] = d[e.from] + e.cost;</span><br><span class="line">                                <span class="comment">//如果第n次仍然更新，则存在负圈</span></span><br><span class="line">                                <span class="keyword">if</span> (i == V<span class="number">-1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考文章 <a href="http://www.acmerblog.com/bellman-ford-algorithm-5828.html" target="_blank" rel="external">http://www.acmerblog.com/bellman-ford-algorithm-5828.html</a></p>
-<h3 id="Dijkstra算法"><a href="#Dijkstra算法" class="headerlink" title="Dijkstra算法"></a>Dijkstra算法</h3><p>参考文章为 <a href="http://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html" target="_blank" rel="external">http://www.cnblogs.com/biyeymyhjob/archive/2012/07/31/2615833.html</a><br>Dijkstra算法主要特点是以起始点为中心向外层层扩展，直到扩展到终点为止(类似于用红墨水浸透线绳)。注意该算法要求图中不存在负权边。</p>
-<p>1)算法思想：设G=(V,E)是一个带权有向图，把图中顶点集合V分成两组，第一组为已求出最短路径的顶点集合（用S表示，初始时S中只有一个源点，以后每求得一条最短路径 , 就将加入到集合S中，直到全部顶点都加入到S中，算法就结束了），第二组为其余未确定最短路径的顶点集合（用U表示），按最短路径长度的递增次序依次把第二组的顶点加入S中。在加入的过程中，总保持从源点v到S中各顶点的最短路径长度不大于从源点v到U中任何顶点的最短路径长度。此外，每个顶点对应一个距离，S中的顶点的距离就是从v到此顶点的最短路径长度，U中的顶点的距离，是从v到此顶点只包括S中的顶点为中间顶点的当前最短路径长度。</p>
-<p>2)算法步骤：<br>a.初始时，S只包含源点，即S＝{v}，v的距离为0。U包含除v外的其他顶点，即:U={其余顶点}，若v与U中顶点u有边，则<u,v>正常有权值，若u不是v的出边邻接点，则<u,v>权值为∞。<br>b.从U中选取一个距离v最小的顶点k，把k，加入S中（该选定的距离就是v到k的最短路径长度）。<br>c.以k为新考虑的中间点，修改U中各顶点的距离；若从源点v到顶点u的距离（经过顶点k）比原来距离（不经过顶点k）短，则修改顶点u的距离值，修改后的距离值的顶点k的距离加上边上的权。<br>d.重复步骤b和c直到所有顶点都包含在S中。</u,v></u,v></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; P;   <span class="comment">//第一个表示从源点出发距离，第二个表示所到节点</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> V;   <span class="comment">//顶点数</span></span><br><span class="line"><span class="comment">//图的表示方法</span></span><br><span class="line"><span class="keyword">struct</span> edge&#123;<span class="keyword">int</span> to, cost&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;edge&gt; G[MAX_V];</span><br><span class="line"><span class="comment">//从源点到各顶点的距离</span></span><br><span class="line"><span class="keyword">int</span> d[MAX_V]；</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">    priority_queue&lt;P, <span class="built_in">vector</span>&lt;P&gt;, greater&lt;P&gt; &gt; p_que;</span><br><span class="line">    fill(d, d + V, MAX_INT); </span><br><span class="line">    d[s] = <span class="number">0</span>;</span><br><span class="line">    p_que.push(P(<span class="number">0</span>, s));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(!p_que.empty())&#123;</span><br><span class="line">        P p = p_que.top();p_que.pop();</span><br><span class="line">        <span class="keyword">int</span> v = p.second;</span><br><span class="line">        <span class="keyword">if</span> (d[v] &lt; p.first) <span class="keyword">continue</span>;   </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[v].size(); i++)&#123;</span><br><span class="line">            edge e = G[v][i];</span><br><span class="line">            <span class="keyword">if</span> (d[e.to] &gt; d[v] + e.cost)&#123;</span><br><span class="line">                d[e.to] = d[v] +e.cost;</span><br><span class="line">                p_que.push(P(d[e.to], e.to));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="任意两点间的最短路径问题"><a href="#任意两点间的最短路径问题" class="headerlink" title="任意两点间的最短路径问题"></a>任意两点间的最短路径问题</h2>
+<p>具体说明就是，大数组为Array，哈希函数为hash，栈为St<br>假设一个项key,查找进行的操作就是,首先进行 value = hash(key),此value就是此key在Array的位置，根据此索引得到一个值index = Array[value],再根据此index在St中寻找，如果栈中有此索引，那么这个值就存在，且St(index) == key,总的来说就是 St[Array[hash[key]]] == key; </p>
+
       
     </div>
 
@@ -327,16 +322,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/06/摊还分析/" rel="next" title="摊还分析">
-                <i class="fa fa-chevron-left"></i> 摊还分析
+              <a href="/2015/12/25/闭包/" rel="next" title="Lua闭包">
+                <i class="fa fa-chevron-left"></i> Lua闭包
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/06/about/" rel="prev" title="about">
-                about <i class="fa fa-chevron-right"></i>
+              <a href="/2016/01/06/动态规划/" rel="prev" title="动态规划">
+                动态规划 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -363,8 +358,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/06/图的用法总结/"
-           data-title="图中的乐趣" data-url="http://louisyw.github.io/2016/03/06/图的用法总结/">
+      <div class="ds-thread" data-thread-key="2016/01/02/大数组的直接寻址/"
+           data-title="算法导论大数组的直接寻址表" data-url="http://louisyw.github.io/2016/01/02/大数组的直接寻址/">
       </div>
     
   </div>
@@ -417,7 +412,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -426,7 +421,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -669,7 +664,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#图中的乐趣"><span class="nav-number">1.</span> <span class="nav-text">图中的乐趣</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#图的表示方法"><span class="nav-number">1.1.</span> <span class="nav-text">图的表示方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最小生成树"><span class="nav-number">1.2.</span> <span class="nav-text">最小生成树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单源最短路径"><span class="nav-number">1.3.</span> <span class="nav-text">单源最短路径</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bellman-Ford算法"><span class="nav-number">1.3.1.</span> <span class="nav-text">Bellman-Ford算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bellman-Ford算法的流程如下："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">Bellman-Ford算法的流程如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#算法的步骤为"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">算法的步骤为</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dijkstra算法"><span class="nav-number">1.3.2.</span> <span class="nav-text">Dijkstra算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任意两点间的最短路径问题"><span class="nav-number">1.4.</span> <span class="nav-text">任意两点间的最短路径问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大数组的直接寻址"><span class="nav-number">1.</span> <span class="nav-text">大数组的直接寻址</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考"><span class="nav-number">3.</span> <span class="nav-text">思考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

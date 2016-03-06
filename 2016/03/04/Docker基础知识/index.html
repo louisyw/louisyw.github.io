@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="c++," />
+  <meta name="keywords" content="Docker," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="memset和fill函数的用法">
+<meta name="description" content="主要介绍Docker的基本知识">
 <meta property="og:type" content="article">
-<meta property="og:title" content="memset和fill的区别">
-<meta property="og:url" content="http://louisyw.github.io/2016/03/06/memset和fill函数的用法/index.html">
+<meta property="og:title" content="Docker总结">
+<meta property="og:url" content="http://louisyw.github.io/2016/03/04/Docker基础知识/index.html">
 <meta property="og:site_name" content="Louis's Blog">
-<meta property="og:description" content="memset和fill函数的用法">
-<meta property="og:updated_time" content="2016-03-03T07:30:06.674Z">
+<meta property="og:description" content="主要介绍Docker的基本知识">
+<meta property="og:updated_time" content="2016-03-06T08:34:22.585Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="memset和fill的区别">
-<meta name="twitter:description" content="memset和fill函数的用法">
+<meta name="twitter:title" content="Docker总结">
+<meta name="twitter:description" content="主要介绍Docker的基本知识">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> memset和fill的区别 | Louis's Blog </title>
+  <title> Docker总结 | Louis's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -226,7 +226,7 @@
             
             
               
-                memset和fill的区别
+                Docker总结
               
             
           </h1>
@@ -238,8 +238,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-06T11:45:13+08:00" content="2016-03-06">
-              2016-03-06
+            <time itemprop="dateCreated" datetime="2016-03-04T11:00:00+08:00" content="2016-03-04">
+              2016-03-04
             </time>
           </span>
 
@@ -252,8 +252,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/c/" itemprop="url" rel="index">
-                    <span itemprop="name">c++</span>
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
                   </a>
                 </span>
 
@@ -268,8 +268,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/06/memset和fill函数的用法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/06/memset和fill函数的用法/" itemprop="commentsCount"></span>
+                <a href="/2016/03/04/Docker基础知识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/04/Docker基础知识/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,12 +291,41 @@
       
 
       
-        <p>memset和fill函数的用法<br><a id="more"></a></p>
+        <p>主要介绍Docker的基本知识<br><a id="more"></a></p>
 <hr>
-<h2 id="memset用法详解"><a href="#memset用法详解" class="headerlink" title="memset用法详解"></a>memset用法详解</h2><p>void <em>memset(void </em>s, int ch, unsigned n);<br>将s所指向的某一块内存中的每个字节的内容全部设置为ch指定的ASCII值,块的大小由第三个参数指定,这个函数通常为新申请的内存做初始化工作,其返回值为指向S的指针。</p>
-<p>1.memset是按<strong>字节填充</strong>,memset是对每个字节赋值，而int有4字节(32位)<br>比如这样,memset(a,1,sizeof(a)), a为整数，<br>则a中的每个元素都被赋值成为2进制数为，00000001 00000001 00000001 00000001，的数<br>转换成10进制就是16843009<br>所以，一般用memset对数组赋0或-1，赋其他的值就要用循环来实现.</p>
-<h2 id="fill用法详解"><a href="#fill用法详解" class="headerlink" title="fill用法详解"></a>fill用法详解</h2><p>将一个区间的元素都赋予val值。函数参数：fill(first,last,val);//first为容器的首迭代器，last为容器的末迭代器，val为将要替换的值。</p>
-<p>fill_n函数的作用是：给你一个起始点，然后再给你一个数值count和val。把从起始点开始依次赋予count个元素val的值<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; myvector (<span class="number">8</span>,<span class="number">10</span>);        <span class="comment">// myvector: 10 10 10 10 10 10 10 10</span></span><br><span class="line"></span><br><span class="line">  fill_n (myvector.begin(),<span class="number">4</span>,<span class="number">20</span>);     <span class="comment">// myvector: 20 20 20 20 10 10 10 10</span></span><br><span class="line">  fill_n (myvector.begin()+<span class="number">3</span>,<span class="number">3</span>,<span class="number">33</span>);   <span class="comment">// myvector: 20 20 20 33 33 33 10 10</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="string">"myvector contains:"</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it=myvector.begin(); it!=myvector.end(); ++it)</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">" "</span> &lt;&lt; *it;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="Docker基础知识"><a href="#Docker基础知识" class="headerlink" title="Docker基础知识"></a>Docker基础知识</h1><p><a href="https://docs.docker.com/" target="_blank" rel="external">Docker文档</a><br><a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="external">Docker基础知识</a><br><a href="http://www.simapple.com/docker-tutorial" target="_blank" rel="external">用Docker创建一个具体应用的实例</a><br><a href="http://www.simapple.com/docker-commandline" target="_blank" rel="external">讲解Docker命令的网站</a></p>
+<p>三个基本的概念：镜像，容器，仓库</p>
+<h1 id="常用的docker命令"><a href="#常用的docker命令" class="headerlink" title="常用的docker命令"></a>常用的docker命令</h1><h2 id="docker镜像"><a href="#docker镜像" class="headerlink" title="docker镜像"></a>docker镜像</h2><h3 id="docker-run"><a href="#docker-run" class="headerlink" title="docker run"></a>docker run</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -t -i ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<ul>
+<li>docker run - 运行一个容器</li>
+<li>-t - 分配一个（伪） tty (link is external)</li>
+<li>-i - 开发输入(so we can interact with it)</li>
+<li>ubuntu - 使用ubuntu基础镜像</li>
+<li>/bin/bash - 运行bash shell</li>
+</ul>
+<p>复制粘贴现在运行的容器 ID (30557c9017ec in my case). 运行docker diff <container id=""></container></p>
+<p>在对容器进行了安装应用,修改文件等后记得重新提交镜像<br>在容器中添加    json    和    gem    两个应用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root@0b2616b0e5a8:/<span class="comment">#	gem	install	json</span></span><br></pre></td></tr></table></figure>
+<p>当结束后,我们使用    exit    来退出,现在我们的容器已经被我们改变了,使用         docker    commit     命令来提交<br>更新后的副本。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo	docker	commit	-m	<span class="string">"changes"</span>	<span class="_">-a</span>	<span class="string">"name"</span>	0b2616b0e5a8	ouruser/sinatra:v2</span><br></pre></td></tr></table></figure></p>
+<p>其中,     -m 来指定提交的说明信息,跟我们使用的版本控制工具一样;     -a         可以指定更新的用户信息;之后是用来创建镜像的容器的ID;最后指定目标镜像的仓库名和tag信息。创建成功后会返回这个镜像的ID信息。</p>
+<h3 id="dockerfile常见镜像"><a href="#dockerfile常见镜像" class="headerlink" title="dockerfile常见镜像"></a>dockerfile常见镜像</h3><p>使用docker    commit         来扩展一个镜像比较简单,但是不方便在一个团队中分享。我们可以使用         docker<br>build    来创建一个新的镜像。为此,首先需要创建一个Dockerfile,包含一些如何创建镜像的指令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$	sudo	docker	build	-t=<span class="string">"ouruser/sinatra:v2"</span>	.</span><br></pre></td></tr></table></figure>
+<p>其中-t标记来添加tag,指定新的镜像的用户信息。“.”    是    Dockerfile    所在的路径(当前目录),也可以替换为一个具体的Dockerfile的路径。<br>此外,还可以利用         ADD         命令复制本地文件到镜像;用         EXPOSE         命令来向外部开放端口;用         CMD         命令来<br>描述容器启动后运行的程序等。例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#	put	my	local	web	site	in	myApp	folder	to	/var/www</span></span><br><span class="line">ADD	myApp	/var/www</span><br><span class="line"><span class="comment">#	expose	httpd	port</span></span><br><span class="line">EXPOSE	80</span><br><span class="line"><span class="comment">#	the	command	to	run</span></span><br><span class="line">CMD	[<span class="string">"/usr/sbin/apachectl"</span>,	<span class="string">"-D"</span>,	<span class="string">"FOREGROUND"</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><p>如果要移除本地的镜像,可以使用docker    rmi命令。注意docker    rm     命令是移除容器</p>
+<p><strong>注意:在删除镜像之前要先用     docker    rm     删掉依赖于这个镜像的所有容器。</strong></p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><p>简单的说,容器是独立运行的一个或一组应用,以及它们的运行态环境。对应的,虚拟机可以理解为模拟运行的一整套操作系统(提供了运行态环境和其他系统环境)和跑在上面的应用。</p>
+<p>启动容器有两种方式,一种是基于镜像新建一个容器并启动,另外一个是将在终止状态(stopped)的容器重新启动。<br>因为Docker的容器实在太轻量级了,很多时候用户都是随时删除和新创建容器。</p>
+<h3 id="新建并启动"><a href="#新建并启动" class="headerlink" title="新建并启动"></a>新建并启动</h3><p>所需要的命令主要为         docker    run     。</p>
+<h3 id="启动已终止容器"><a href="#启动已终止容器" class="headerlink" title="启动已终止容器"></a>启动已终止容器</h3><p>可以利用docker    start         命令,直接将一个已经终止的容器启动运行。</p>
+<h3 id="后台-background-运行"><a href="#后台-background-运行" class="headerlink" title="后台(background)运行"></a>后台(background)运行</h3><p>更多的时候,需要让    Docker在后台运行而不是直接把执行命令的结果输出在当前宿主机下。此时,可以通过添加    -d         参数来实现。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo	docker	run	<span class="_">-d</span>	ubuntu:14.04	/bin/sh	-c	<span class="string">"while	true;	do	echo	hello	world;	sleep	1;	done"</span></span><br></pre></td></tr></table></figure></p>
+<p>此时容器会在后台运行并不会把输出的结果(STDOUT)打印到宿主机上面(输出结果可以用docker    logs    查<br>看)。</p>
+<h3 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h3><p>可以使用         docker    stop         来终止一个运行中的容器。<br>此外,当Docker容器中指定的应用终结时,容器也自动终止。    例如对于上一章节中只启动了一个终端的容<br>器,用户通过         exit         命令或         Ctrl+d         来退出终端时,所创建的容器立刻终止。</p>
+<p>此外,     docker    restart    命令会将一个运行态的容器终止,然后再重新启动它。</p>
+<p>终止状态的容器可以用docker    ps    -a    命令看到。<br>当前运行的容器可以用docker ps命令看到哦。</p>
+<h3 id="进入后台运行的容器"><a href="#进入后台运行的容器" class="headerlink" title="进入后台运行的容器"></a>进入后台运行的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">louis@uuu:~$ sudo docker ps <span class="_">-a</span></span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                      PORTS               NAMES</span><br><span class="line">598babdcf920        ded5e192a685        <span class="string">"/bin/bash"</span>              4 days ago          Exited (0) 4 days ago                           high_raman</span><br><span class="line">5d3d10c408a8        ded5e192a685        <span class="string">"/bin/bash"</span>              4 days ago          Exited (1) 4 days ago                           goofy_mahavira</span><br><span class="line">f3c57e6f9f9b        ubuntu:14.04        <span class="string">"/bin/sh -c 'while tr"</span>   12 weeks ago        Exited (137) 12 weeks ago                       gigantic_fermi</span><br><span class="line">311a073ffcf8        centos              <span class="string">"/bin/bash"</span>              3 months ago        Exited (0) 3 months ago                         focused_kalam</span><br></pre></td></tr></table></figure>
+<p>docker attach</p>
+<h1 id="Docker数据卷"><a href="#Docker数据卷" class="headerlink" title="Docker数据卷"></a>Docker数据卷</h1><p><a href="http://blog.csdn.net/junjun16818/article/details/30655543" target="_blank" rel="external">介绍数据卷</a></p>
 
       
     </div>
@@ -311,7 +340,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag">#c++</a>
+            <a href="/tags/Docker/" rel="tag">#Docker</a>
           
         </div>
       
@@ -320,16 +349,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/06/Docker基础知识/" rel="next" title="Docker总结">
-                <i class="fa fa-chevron-left"></i> Docker总结
+              <a href="/2016/02/25/memset和fill函数的用法/" rel="next" title="memset和fill的区别">
+                <i class="fa fa-chevron-left"></i> memset和fill的区别
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/06/hexo MathJax公式/" rel="prev" title="mathjax的使用">
-                mathjax的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/03/04/hexo MathJax公式/" rel="prev" title="MathJax的使用">
+                MathJax的使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -356,8 +385,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/06/memset和fill函数的用法/"
-           data-title="memset和fill的区别" data-url="http://louisyw.github.io/2016/03/06/memset和fill函数的用法/">
+      <div class="ds-thread" data-thread-key="2016/03/04/Docker基础知识/"
+           data-title="Docker总结" data-url="http://louisyw.github.io/2016/03/04/Docker基础知识/">
       </div>
     
   </div>
@@ -410,7 +439,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -419,7 +448,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -662,7 +691,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#memset用法详解"><span class="nav-number">1.</span> <span class="nav-text">memset用法详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fill用法详解"><span class="nav-number">2.</span> <span class="nav-text">fill用法详解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker基础知识"><span class="nav-number">1.</span> <span class="nav-text">Docker基础知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用的docker命令"><span class="nav-number">2.</span> <span class="nav-text">常用的docker命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker镜像"><span class="nav-number">2.1.</span> <span class="nav-text">docker镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-run"><span class="nav-number">2.1.1.</span> <span class="nav-text">docker run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dockerfile常见镜像"><span class="nav-number">2.1.2.</span> <span class="nav-text">dockerfile常见镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除镜像"><span class="nav-number">2.1.3.</span> <span class="nav-text">删除镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器"><span class="nav-number">2.2.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建并启动"><span class="nav-number">2.2.1.</span> <span class="nav-text">新建并启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动已终止容器"><span class="nav-number">2.2.2.</span> <span class="nav-text">启动已终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台-background-运行"><span class="nav-number">2.2.3.</span> <span class="nav-text">后台(background)运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终止容器"><span class="nav-number">2.2.4.</span> <span class="nav-text">终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入后台运行的容器"><span class="nav-number">2.2.5.</span> <span class="nav-text">进入后台运行的容器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker数据卷"><span class="nav-number">3.</span> <span class="nav-text">Docker数据卷</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
