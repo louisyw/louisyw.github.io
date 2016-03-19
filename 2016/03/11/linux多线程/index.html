@@ -1,0 +1,789 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="多线程 linux," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Mario.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="linux多线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux多线程同步">
+<meta property="og:url" content="http://louisyw.github.io/2016/03/11/linux多线程/index.html">
+<meta property="og:site_name" content="Louis's Blog">
+<meta property="og:description" content="linux多线程">
+<meta property="og:updated_time" content="2016-03-19T01:44:53.086Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux多线程同步">
+<meta name="twitter:description" content="linux多线程">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> linux多线程同步 | Louis's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Louis's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux多线程同步
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-03-11T00:00:00+08:00" content="2016-03-11">
+              2016-03-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/11/linux多线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/11/linux多线程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>linux多线程<br><a id="more"></a></p>
+<hr>
+<h2 id="进程特性"><a href="#进程特性" class="headerlink" title="进程特性"></a>进程特性</h2><p>Linux进程创建一个新线程时，线程将拥有自己的栈（因为线程有自己的局部变量），但与它的创建者共享全局变量、文件描述符、信号句柄和当前目录状态。<br>Linux通过fork创建子进程与创建线程之间是有区别的：fork创建出该进程的一份拷贝，这个新进程拥有自己的变量和自己的PID，它的时间调度是独立的，它的执行几乎完全独立于父进程。<br>进程可以看成一个资源的基本单位，而线程是程序调度的基本单位，一个进程内部的线程之间共享进程获得的时间片。<br><a href="http://blog.csdn.net/monkey_d_meng/article/details/5628663" target="_blank" rel="external">介绍线程的基本函数</a>,主要了解文章中的_REENTRANT宏，以及线程中的基本函数到线程属性<br><a href="http://www.cnblogs.com/forstudy/archive/2012/04/05/2433853.html" target="_blank" rel="external">另一篇文章</a></p>
+<h2 id="多线程面试题集锦"><a href="#多线程面试题集锦" class="headerlink" title="多线程面试题集锦"></a>多线程面试题集锦</h2><p><a href="http://www.cnblogs.com/astwish/articles/3439308.html" target="_blank" rel="external">多线程面试题</a></p>
+<h2 id="生产者-消费者问题"><a href="#生产者-消费者问题" class="headerlink" title="生产者-消费者问题"></a>生产者-消费者问题</h2><p><a href="http://blog.csdn.net/xiajun07061225/article/details/11889423" target="_blank" rel="external">生产者消费者</a><br>模型：<br>    生产者—-&gt;有限的缓冲区—-&gt;消费者<br>问题描述：生产者产生项目并把他们插入到一个有限的缓冲区中。需要消费者从缓冲区中取出这些项目，然后消费他们。<br>因为插入和取出项目都涉及更新共享变量，所以我们必须保证对缓冲区的访问是<strong>互斥</strong>的。只保证互斥访问是不够的，我们还需要更新调度对缓冲区的访问。如果缓冲区是满的，那么生产者必须等待直到一个槽位变为可用。与之相似，如果缓冲区是空的，那么消费者必须等待直到有一个项目变为可用。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;semaphore.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> USER 2            <span class="comment">//生产者数量，消费者数量</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NUMS 10           <span class="comment">//缓冲区长度</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">	<span class="keyword">int</span> *buf;            <span class="comment">//缓冲区</span></span><br><span class="line">	<span class="keyword">int</span> n;              <span class="comment">//缓冲区最大长度</span></span><br><span class="line">	<span class="keyword">int</span> front;           <span class="comment">//队头 (front+1)%n 是第一个元素 </span></span><br><span class="line">	<span class="keyword">int</span> rear;            <span class="comment">//队尾  (rear % n)是最后一个元素</span></span><br><span class="line">	<span class="keyword">sem_t</span> mutex;          <span class="comment">//保护对缓冲区的访问</span></span><br><span class="line">	<span class="keyword">sem_t</span> slots;          <span class="comment">//Counts the slot</span></span><br><span class="line">	<span class="keyword">sem_t</span> items;          <span class="comment">//Counts the item    </span></span><br><span class="line">&#125;<span class="keyword">sbuf_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbuf_init</span><span class="params">(sbuf_t *sp, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> result;</span><br><span class="line">	sp-&gt;buf = (<span class="keyword">int</span>*)<span class="built_in">calloc</span>(n, <span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">	<span class="keyword">if</span>(sp-&gt;buf == <span class="literal">NULL</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"calloc error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	sp-&gt;n = n;</span><br><span class="line">	sp-&gt;front = sp-&gt;rear = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	result = sem_init(&amp;sp-&gt;mutex, <span class="number">0</span>, <span class="number">1</span>);   </span><br><span class="line">	<span class="keyword">if</span> (result != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_init mutex error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	result = sem_init(&amp;sp-&gt;slots, <span class="number">0</span>, n);</span><br><span class="line">	<span class="keyword">if</span> (result != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_init slots error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	result = sem_init(&amp;sp-&gt;items, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span> ( result != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_init items error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbuf_deinit</span><span class="params">(sbuf_t *sp)</span></span>&#123;</span><br><span class="line">	<span class="built_in">free</span>(sp-&gt;buf);</span><br><span class="line">	sp-&gt;buf = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sbuf_insert</span><span class="params">(sbuf_t *sp, <span class="keyword">int</span> item)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line"></span><br><span class="line">	ret = sem_wait(&amp;sp-&gt;slots);</span><br><span class="line">	<span class="keyword">if</span> (ret != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_wait slots error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = sem_wait(&amp;sp-&gt;mutex);</span><br><span class="line">	<span class="keyword">if</span> (ret != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_wait mutex error\n"</span>);         </span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);					</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">pthread_t</span> tid;</span><br><span class="line">	tid = pthread_self();</span><br><span class="line">	sp-&gt;buf[sp-&gt;rear] = item;</span><br><span class="line">	sp-&gt;rear = ++(sp-&gt;rear) % sp-&gt;n;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"thread[%u] insert an item :%d\n"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)tid, item);</span><br><span class="line">	</span><br><span class="line">	ret = sem_post(&amp;sp-&gt;mutex);</span><br><span class="line">	<span class="keyword">if</span>(ret != <span class="number">0</span>)&#123;	            </span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_post mutex error\n"</span>);										</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	ret = sem_post(&amp;sp-&gt;items);</span><br><span class="line">	<span class="keyword">if</span>(ret != <span class="number">0</span>)&#123;          </span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_post items error\n"</span>); </span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);									</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sbuf_remove</span><span class="params">(sbuf_t * sp)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> item = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">int</span> ret;</span><br><span class="line"></span><br><span class="line">	ret = sem_wait(&amp;sp-&gt;items);</span><br><span class="line">	<span class="keyword">if</span> (ret != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_wait items error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = sem_wait(&amp;sp-&gt;mutex);</span><br><span class="line">	<span class="keyword">if</span> (ret != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_wait mutex error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);					</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">pthread_t</span> tid;</span><br><span class="line">	tid = pthread_self();</span><br><span class="line">	item = sp-&gt;buf[sp-&gt;front];</span><br><span class="line">	sp-&gt;front = (++sp-&gt;front) % sp-&gt;n;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"thread[%u] delete an item :%d\n"</span>, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)tid, item);</span><br><span class="line"></span><br><span class="line">	ret = sem_post(&amp;sp-&gt;mutex);</span><br><span class="line">	<span class="keyword">if</span>(ret != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_post mutex error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	ret = sem_post(&amp;sp-&gt;slots);</span><br><span class="line">	<span class="keyword">if</span>(ret != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"sem_post items error\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> item;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">producer</span><span class="params">(<span class="keyword">void</span> *arg)</span></span>&#123;</span><br><span class="line">	<span class="keyword">sbuf_t</span> *sbp = (<span class="keyword">sbuf_t</span> *) arg;</span><br><span class="line">	<span class="keyword">int</span> randb;</span><br><span class="line">	srand((<span class="keyword">unsigned</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		randb = rand();</span><br><span class="line">		sleep(rand()%<span class="number">2</span>);</span><br><span class="line">		<span class="comment">//printf("now produce want to produce %d \n",randb);</span></span><br><span class="line">		<span class="comment">//if(sbuf_insert(sbp, randb))&#123;</span></span><br><span class="line">			<span class="comment">//printf("report error condition of producer\n\n");</span></span><br><span class="line">		<span class="comment">//&#125;else&#123;</span></span><br><span class="line">			sbuf_insert(sbp, randb);</span><br><span class="line">			<span class="comment">//printf("producer produced %d\n\n",randb);</span></span><br><span class="line">		<span class="comment">//&#125;</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">consumer</span><span class="params">(<span class="keyword">void</span> *arg)</span></span>&#123;</span><br><span class="line">	<span class="keyword">sbuf_t</span> *sbp = (<span class="keyword">sbuf_t</span> *) arg;</span><br><span class="line">	<span class="keyword">int</span> item;</span><br><span class="line">	srand((<span class="keyword">unsigned</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;	</span><br><span class="line">		sleep(rand()%<span class="number">2</span>);</span><br><span class="line">		<span class="comment">//printf("now consume want to consume an item\n");</span></span><br><span class="line">		<span class="keyword">if</span>((item = sbuf_remove(sbp)) &lt; <span class="number">0</span>)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"report error condition of consume\n\n"</span>);</span><br><span class="line">		<span class="comment">//else</span></span><br><span class="line">			<span class="comment">//printf("consume consumed %d\n\n",item);</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">	<span class="keyword">pthread_t</span> tidProducer[USER], tidConsumer[USER];</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">int</span> err;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">sbuf_t</span> sb;</span><br><span class="line"></span><br><span class="line">	sbuf_init(&amp;sb, NUMS);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>( i = <span class="number">0</span> ; i &lt; USER; ++i)&#123;</span><br><span class="line">		err = pthread_create(&amp;tidProducer[i], <span class="literal">NULL</span>, producer, (<span class="keyword">void</span>*)(&amp;sb));</span><br><span class="line">		<span class="keyword">if</span> (err != <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"pthread_create error\n"</span>);</span><br><span class="line">			<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; USER; ++i)&#123;</span><br><span class="line">	    err = pthread_create(&amp;tidConsumer[i], <span class="literal">NULL</span>, consumer, (<span class="keyword">void</span>*)(&amp;sb));</span><br><span class="line">	    <span class="keyword">if</span>(err != <span class="number">0</span>)&#123;</span><br><span class="line">		    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"pthread_create error\n"</span>);</span><br><span class="line">		    <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">	    &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	sleep(<span class="number">10</span>);</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; USER; i++)&#123;</span><br><span class="line">		err = pthread_kill(tidProducer[i], <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span>(err != <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"pthread_kill error\n"</span>);\</span><br><span class="line">			<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; USER; i++)&#123;</span><br><span class="line">		err = pthread_kill(tidConsumer[i], <span class="number">0</span>);</span><br><span class="line">		<span class="keyword">if</span>(err != <span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"pthread_kill error\n"</span>);\</span><br><span class="line">			<span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	sbuf_deinit(&amp;sb);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p>我们知道应用程序创建一个对象，然后销毁对象是很耗费资源的。创建线程，销毁线程，也是如此。因此，我们就预先生成一些线程，等到我们使用的时候在进行调度，于是，一些”池化资源”技术就这样的产生了。<br>一般一个简单线程池至少包含下列组成部分。</p>
+<ol>
+<li>线程池管理器（ThreadPoolManager）:用于创建并管理线程池</li>
+<li>工作线程（WorkThread）: 线程池中线程</li>
+<li>任务接口（Task）:每个任务必须实现的接口，以供工作线程调度任务的执行。</li>
+<li>任务队列:用于存放没有处理的任务。提供一种缓冲机制。<br><a href="https://github.com/louisyw/echo_server/tree/master/myecho" target="_blank" rel="external">实现的具体代码见</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程-linux/" rel="tag">#多线程 linux</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/08/sizeof的用法总结/" rel="next" title="sizeof用法总结">
+                <i class="fa fa-chevron-left"></i> sizeof用法总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/18/二分查找的应用/" rel="prev" title="二分查找">
+                二分查找 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/11/linux多线程/"
+           data-title="linux多线程同步" data-url="http://louisyw.github.io/2016/03/11/linux多线程/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="gcc" />
+          <p class="site-author-name" itemprop="name">gcc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程特性"><span class="nav-number">1.</span> <span class="nav-text">进程特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程面试题集锦"><span class="nav-number">2.</span> <span class="nav-text">多线程面试题集锦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产者-消费者问题"><span class="nav-number">3.</span> <span class="nav-text">生产者-消费者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池"><span class="nav-number">3.1.</span> <span class="nav-text">线程池</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gcc</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"louisyw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  
+
+
+
+<!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+</body>
+</html>
