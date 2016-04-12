@@ -57,22 +57,16 @@
 
 
 
-<meta name="description" content="判断LIS的长度是否大于3
-&amp;lt;–!more–&amp;gt;Increasing Triplet Subsequence Increasing Triplet Subsequence大意:给定序列，找出序列的最长递增子序列的长度是否大于3
-常规方法:  求出最长递增自序列的长度，判断是否大于3123456789101112131415161718192021class Solution &amp;#123;">
+<meta name="description" content="判断LIS的长度是否大于3">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Increasing Triplet Subsequence">
 <meta property="og:url" content="http://louisyw.github.io/2016/04/01/Increasing Triplet Subsequence/index.html">
 <meta property="og:site_name" content="Louis's Blog">
-<meta property="og:description" content="判断LIS的长度是否大于3
-&amp;lt;–!more–&amp;gt;Increasing Triplet Subsequence Increasing Triplet Subsequence大意:给定序列，找出序列的最长递增子序列的长度是否大于3
-常规方法:  求出最长递增自序列的长度，判断是否大于3123456789101112131415161718192021class Solution &amp;#123;">
-<meta property="og:updated_time" content="2016-04-12T14:43:45.647Z">
+<meta property="og:description" content="判断LIS的长度是否大于3">
+<meta property="og:updated_time" content="2016-04-12T14:47:14.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Increasing Triplet Subsequence">
-<meta name="twitter:description" content="判断LIS的长度是否大于3
-&amp;lt;–!more–&amp;gt;Increasing Triplet Subsequence Increasing Triplet Subsequence大意:给定序列，找出序列的最长递增子序列的长度是否大于3
-常规方法:  求出最长递增自序列的长度，判断是否大于3123456789101112131415161718192021class Solution &amp;#123;">
+<meta name="twitter:description" content="判断LIS的长度是否大于3">
 
 
 
@@ -298,7 +292,7 @@
 
       
         <p>判断LIS的长度是否大于3</p>
-<h2 id="lt-–-more–-gt"><a href="#lt-–-more–-gt" class="headerlink" title="&lt;–!more–&gt;"></a>&lt;–!more–&gt;</h2><h1 id="Increasing-Triplet-Subsequence"><a href="#Increasing-Triplet-Subsequence" class="headerlink" title="Increasing Triplet Subsequence"></a>Increasing Triplet Subsequence</h1><p> <a href="https://leetcode.com/problems/increasing-triplet-subsequence/" target="_blank" rel="external">Increasing Triplet Subsequence</a><br>大意:给定序列，找出序列的最长递增子序列的长度是否大于3</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="Increasing-Triplet-Subsequence"><a href="#Increasing-Triplet-Subsequence" class="headerlink" title="Increasing Triplet Subsequence"></a>Increasing Triplet Subsequence</h1><p> <a href="https://leetcode.com/problems/increasing-triplet-subsequence/" target="_blank" rel="external">Increasing Triplet Subsequence</a><br>大意:给定序列，找出序列的最长递增子序列的长度是否大于3</p>
 <p>常规方法:  求出最长递增自序列的长度，判断是否大于3<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">increasingTriplet</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">size_t</span> length = nums.size();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> lis = <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> LIS[length];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++)&#123;</span><br><span class="line">            LIS[i]  =<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[i] &gt; nums[j] &amp;&amp; LIS[i] &lt; LIS[j] + <span class="number">1</span>)</span><br><span class="line">                    LIS[i] = LIS[j] +<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(LIS[i] &gt; lis)</span><br><span class="line">                lis = LIS[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lis &gt;= <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>O(n)的方法:<br>建立一个由<strong>两个数构成的数组</strong>，扫描当前数组:</p>
 <p>如果这个数比其中的最小的数要小，就将最小的数更新为当前数；<br>如果这个数位于两个数的中间，就将最大的数更新为当前数；<br>否则的话，就找到</p>
@@ -334,8 +328,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/04/12/leetcode Roman to interger/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/12/leetcode Roman to interger/" rel="prev" title="leetcode Roman to int">
+                leetcode Roman to int <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -458,7 +452,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lt-–-more–-gt"><span class="nav-number">1.</span> <span class="nav-text"><–!more–></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Increasing-Triplet-Subsequence"><span class="nav-number"></span> <span class="nav-text">Increasing Triplet Subsequence</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Increasing-Triplet-Subsequence"><span class="nav-number"></span> <span class="nav-text">Increasing Triplet Subsequence</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
