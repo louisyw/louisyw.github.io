@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="给定一个整数，求出其二进制1的个数">
+<meta name="description" content="给定数组，求出数组中第一个只出现一次的数字">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Counting Bits">
-<meta property="og:url" content="http://louisyw.github.io/2016/03/22/Counting Bits/index.html">
+<meta property="og:title" content="Google面试题-第一个只出现一次的字符">
+<meta property="og:url" content="http://louisyw.github.io/2016/04/13/给定数组，求出数组中第一个只出现一次的数字/index.html">
 <meta property="og:site_name" content="Louis's Blog">
-<meta property="og:description" content="给定一个整数，求出其二进制1的个数">
-<meta property="og:updated_time" content="2016-03-28T02:28:40.486Z">
+<meta property="og:description" content="给定数组，求出数组中第一个只出现一次的数字">
+<meta property="og:updated_time" content="2016-04-13T13:49:53.404Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Counting Bits">
-<meta name="twitter:description" content="给定一个整数，求出其二进制1的个数">
+<meta name="twitter:title" content="Google面试题-第一个只出现一次的字符">
+<meta name="twitter:description" content="给定数组，求出数组中第一个只出现一次的数字">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> Counting Bits | Louis's Blog </title>
+  <title> Google面试题-第一个只出现一次的字符 | Louis's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -226,7 +226,7 @@
             
             
               
-                Counting Bits
+                Google面试题-第一个只出现一次的字符
               
             
           </h1>
@@ -238,8 +238,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-22T00:00:00+08:00" content="2016-03-22">
-              2016-03-22
+            <time itemprop="dateCreated" datetime="2016-04-13T21:00:00+08:00" content="2016-04-13">
+              2016-04-13
             </time>
           </span>
 
@@ -268,8 +268,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/22/Counting Bits/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/22/Counting Bits/" itemprop="commentsCount"></span>
+                <a href="/2016/04/13/给定数组，求出数组中第一个只出现一次的数字/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/13/给定数组，求出数组中第一个只出现一次的数字/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,13 +291,9 @@
       
 
       
-        <p>给定一个整数，求出其二进制1的个数</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="Counting-Bits"><a href="#Counting-Bits" class="headerlink" title="Counting Bits"></a>Counting Bits</h1><p>给定一个非负整数num。对于每一个满足0 ≤ i ≤ num的数字i，计算其数字的二进制表示中1的个数，并以数组形式返回。</p>
-<p>解法一：<br>先介绍一个概念： Lowbit，这是计算方法：  Lowbit(a)=a&amp;(a-1)<br>至于它的作用，就是把二进制a 的最后一个1干掉。<br>比如 Lowbit(1000100)=1000000</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">countBits</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span>* returnSize)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    *returnSize = num+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> cnt;</span><br><span class="line">    <span class="keyword">int</span> i, m;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> *ret = (<span class="keyword">int</span>*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * (num+<span class="number">1</span>));</span><br><span class="line">    </span><br><span class="line">    ret[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(m = <span class="number">1</span>; m&lt;= num; m++)&#123;</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        i = m;</span><br><span class="line">        <span class="keyword">while</span>(i)&#123;    <span class="comment">//求数m中二进制1的个数</span></span><br><span class="line">            cnt++;</span><br><span class="line">            i &amp;= (i<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        ret[m] = cnt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解法二:<br>根据上面介绍的lowbit的概念，可以得到以下递推关系式<br>ret[n] = ret[n&amp;(n-1)] +1;<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; countBits(<span class="keyword">int</span> num) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret(num +<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        ret[<span class="number">0</span>] = <span class="number">0</span>;        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;= num; i++)</span><br><span class="line">            ret[i] = ret[i&amp;(i<span class="number">-1</span>)] + <span class="number">1</span>; </span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>解法三:<br>递推关系式为:</p>
-<p>ret[n] = ret[n&gt;&gt;1] +m        //m=n&amp;1<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; countBits(<span class="keyword">int</span> num) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret(num +<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        ret[<span class="number">0</span>] = <span class="number">0</span>;        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;= num; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> m = i&amp;<span class="number">1</span>;</span><br><span class="line">            ret[i] = ret[i&gt;&gt;<span class="number">1</span>] + m; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+        <p>给定数组，求出数组中第一个只出现一次的数字</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>题目：在一个字符串中找到第一个只出现一次的字符。如输入abaccdeff，则输出b。<br>需要注意的是，这道题目求得是<strong>只出现一次</strong>的<strong>第一个</strong>字符。<br>显然要用hash来统计字符出现的次数，在遍历一遍数组来找到只出现一次的第一个字符。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">findFirstNotRepeatedChar</span><span class="params">(<span class="built_in">string</span> &amp;s)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s.size() == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">//空串</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> hashList[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">size_t</span> i= <span class="number">0</span>; i &lt; <span class="number">256</span>; i++)</span><br><span class="line">        hashList[i] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">size_t</span> i= <span class="number">0</span>; i &lt; s.size(); i++)&#123;</span><br><span class="line">        hashList[ s[i] ] ++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">size_t</span> i = <span class="number">0</span>; i &lt; s.size(); i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(hashList[ s[i] ] == <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> s[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;   <span class="comment">//没找到</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> str = <span class="string">"aadfaszdfasdgfhgfghsdlkjlkjsdfjaoriueoirum"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;findFirstNotRepeatedChar(str)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -321,17 +317,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/18/二分查找的应用/" rel="next" title="二分查找">
-                <i class="fa fa-chevron-left"></i> 二分查找
+              <a href="/2016/04/13/计算出给定的字符串的最长无重复字串/" rel="next" title="Longest Substring Without Repeating Characters">
+                <i class="fa fa-chevron-left"></i> Longest Substring Without Repeating Characters
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/22/如何在一堆数中找到那个出现次数超过一半的数字/" rel="prev" title="如何在一堆数中找到那个出现次数超过一半的数字">
-                如何在一堆数中找到那个出现次数超过一半的数字 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -357,8 +349,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/22/Counting Bits/"
-           data-title="Counting Bits" data-url="http://louisyw.github.io/2016/03/22/Counting Bits/">
+      <div class="ds-thread" data-thread-key="2016/04/13/给定数组，求出数组中第一个只出现一次的数字/"
+           data-title="Google面试题-第一个只出现一次的字符" data-url="http://louisyw.github.io/2016/04/13/给定数组，求出数组中第一个只出现一次的数字/">
       </div>
     
   </div>
@@ -453,7 +445,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Counting-Bits"><span class="nav-number"></span> <span class="nav-text">Counting Bits</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
