@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="c++," />
+  <meta name="keywords" content="leetcode 算法," />
 
 
 
@@ -57,16 +57,18 @@
 
 
 
-<meta name="description" content="sizeof的用法总结">
+<meta name="description" content="计算出给定的字符串的最长无重复字串">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sizeof用法总结">
-<meta property="og:url" content="http://louisyw.github.io/2016/03/08/sizeof的用法总结/index.html">
+<meta property="og:title" content="Longest Substring Without Repeating Characters">
+<meta property="og:url" content="http://louisyw.github.io/2016/04/13/计算出给定的字符串的最长无重复字串/index.html">
 <meta property="og:site_name" content="Louis's Blog">
-<meta property="og:description" content="sizeof的用法总结">
-<meta property="og:updated_time" content="2016-03-19T01:50:47.642Z">
+<meta property="og:description" content="计算出给定的字符串的最长无重复字串">
+<meta property="og:image" content="http://1.bp.blogspot.com/-mkmjwnPwKF4/UNkJBIoe0oI/AAAAAAAAG8Q/57-ePP0dO2k/s1600/Picture2.png">
+<meta property="og:updated_time" content="2016-04-13T12:42:18.343Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sizeof用法总结">
-<meta name="twitter:description" content="sizeof的用法总结">
+<meta name="twitter:title" content="Longest Substring Without Repeating Characters">
+<meta name="twitter:description" content="计算出给定的字符串的最长无重复字串">
+<meta name="twitter:image" content="http://1.bp.blogspot.com/-mkmjwnPwKF4/UNkJBIoe0oI/AAAAAAAAG8Q/57-ePP0dO2k/s1600/Picture2.png">
 
 
 
@@ -84,7 +86,7 @@
   };
 </script>
 
-  <title> sizeof用法总结 | Louis's Blog </title>
+  <title> Longest Substring Without Repeating Characters | Louis's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -226,7 +228,7 @@
             
             
               
-                sizeof用法总结
+                Longest Substring Without Repeating Characters
               
             
           </h1>
@@ -238,8 +240,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-08T00:00:00+08:00" content="2016-03-08">
-              2016-03-08
+            <time itemprop="dateCreated" datetime="2016-04-13T16:00:00+08:00" content="2016-04-13">
+              2016-04-13
             </time>
           </span>
 
@@ -252,8 +254,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/c/" itemprop="url" rel="index">
-                    <span itemprop="name">c++</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -268,8 +270,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/08/sizeof的用法总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/08/sizeof的用法总结/" itemprop="commentsCount"></span>
+                <a href="/2016/04/13/计算出给定的字符串的最长无重复字串/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/13/计算出给定的字符串的最长无重复字串/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,10 +293,16 @@
       
 
       
-        <p>sizeof的用法总结<br><a id="more"></a></p>
+        <p>计算出给定的字符串的最长无重复字串<br><a id="more"></a></p>
 <hr>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在64为机器上进行测试，linux</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span> *str = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(<span class="keyword">char</span>)&lt;&lt;<span class="built_in">endl</span>;        <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(<span class="keyword">int</span>)&lt;&lt;<span class="built_in">endl</span>;         <span class="comment">//4</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(<span class="keyword">short</span>)&lt;&lt;<span class="built_in">endl</span>;       <span class="comment">//2</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(<span class="keyword">double</span>)&lt;&lt;<span class="built_in">endl</span>;      <span class="comment">//8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(<span class="keyword">long</span> <span class="keyword">long</span>)&lt;&lt;<span class="built_in">endl</span>;   <span class="comment">//8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(str)&lt;&lt;<span class="built_in">endl</span>;          <span class="comment">//8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(s)&lt;&lt;<span class="built_in">endl</span>;           <span class="comment">//8</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//指针的都为8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span> (<span class="keyword">char</span>*)&lt;&lt;<span class="built_in">endl</span>;      <span class="comment">//8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(<span class="keyword">int</span> *)&lt;&lt;<span class="built_in">endl</span>;       <span class="comment">//8</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"About sizeof"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//声明一个二维数组，数组中存放的是一维指针</span></span><br><span class="line">        <span class="keyword">int</span>* (*a)[<span class="number">3</span>][<span class="number">6</span>];</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(a)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 8 a为指针</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(*a)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 144 *a为一个有3*6个指针元素的数组(3*6*(sizeof(int*))=144)</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(**a)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 48 **a为数组一维的6个指针</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(***a)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 8 ***a为一维的第一个指针</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(****a)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">// 4 ****a为一个int变量</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"About sizeof"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//声明一个二维数组，数组中存放的是指针的指针</span></span><br><span class="line">        <span class="keyword">int</span>** b[<span class="number">3</span>][<span class="number">6</span>];</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(b)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//144</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(*b)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//48     //一维数组</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(**b)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//8     //数组中的元素，指针的指针</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(***b)&lt;&lt;<span class="built_in">endl</span>; <span class="comment">//8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(****b)&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">//4</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//二维数组，数组中的元素为指针</span></span><br><span class="line">        <span class="keyword">int</span>* p[<span class="number">3</span>][<span class="number">6</span>];</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt; <span class="keyword">sizeof</span>(p)&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">//144</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(*p)&lt;&lt;<span class="built_in">endl</span>;   <span class="comment">//48</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(**p)&lt;&lt;<span class="built_in">endl</span>;   <span class="comment">//8</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(***p)&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">//4</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"matrix:"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">        <span class="comment">//内存不是连续的，先申请一维，再申请二维</span></span><br><span class="line">        <span class="keyword">int</span> q[<span class="number">2</span>][<span class="number">3</span>]=&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;;    </span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt; <span class="keyword">sizeof</span>(q)&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">//24（2*3*4 = 24）</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(*q)&lt;&lt;<span class="built_in">endl</span>;   <span class="comment">//12</span></span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="keyword">sizeof</span>(**q)&lt;&lt;<span class="built_in">endl</span>;  <span class="comment">//4</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>int* (<em>\a)[3][6];<br>(\</em>a) 是一个指向int指针构成的二维数组，<br>a就是一个指针，sizeof(a) = sizeof(int *) = 8;<br>(*a) = 3*6*sizeof(int*) = 144;<br>(**a)是int*[6]类型的,故为6*sizeof(int *) = 48;<br>(***a)为int *，为8<br>(****a)为int，为4</p>
+<h1 id="3-Longest-Substring-Without-Repeating-Characters"><a href="#3-Longest-Substring-Without-Repeating-Characters" class="headerlink" title="3.Longest Substring Without Repeating Characters"></a><a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/" target="_blank" rel="external">3.Longest Substring Without Repeating Characters</a></h1><p>题目：<br>Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for “abcabcbb” is “abc”, which the length is 3. For “bbbbb” the longest substring is “b”, with the length of 1.<br>大致意思：给定一个字符串，求出这个字符串的最长无重复字符的字串</p>
+<p>思路:<br>(1)建立哈希表，储存相应的字符在字符串中的位置；<br>(2)从前往后扫字符串(start指针指向扫描的前端),当字符出现过时(前一次出现的位置为index1，这一次出现的位置为index2)，就将start指针指向index + 1，在从start继续扫描(同时重置hash表，防止index1之前的元素的干扰)，</p>
+<p><img src="http://1.bp.blogspot.com/-mkmjwnPwKF4/UNkJBIoe0oI/AAAAAAAAG8Q/57-ePP0dO2k/s1600/Picture2.png" alt="图片描述算法"><br>图片来源(<a href="http://fisherlei.blogspot.com/2012/12/leetcode-longest-substring-without.html" target="_blank" rel="external">http://fisherlei.blogspot.com/2012/12/leetcode-longest-substring-without.html</a>)</p>
+<p>在这里需要注意的问题:<br>(1)字符并不限于26个字符<br>(2)注意处理原本字符串就不重复的情况</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.size() == <span class="number">0</span>)   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> chart[<span class="number">256</span>];</span><br><span class="line">        fill(chart, chart+<span class="number">256</span>, <span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">0</span>;   <span class="comment">//加入len是为了处理字符串本来就不重复的情况</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.size(); i++, len++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(chart[s[i]] &gt;= <span class="number">0</span>)&#123;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//比之前的字串长</span></span><br><span class="line">                <span class="keyword">if</span>(i - start  &gt; max)</span><br><span class="line">                    max = i - start;</span><br><span class="line">                    </span><br><span class="line">                <span class="comment">//重新开始，从重复的字符串开始</span></span><br><span class="line">                start = chart[s[i]] + <span class="number">1</span>;</span><br><span class="line">                i = start;</span><br><span class="line">                len = <span class="number">0</span>;</span><br><span class="line">                fill(chart, chart+<span class="number">256</span>, <span class="number">-1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            chart[s[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max &gt; len ? max: len;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>version 2<br>修改后更简洁的方法<br>对以上的代码进行精简，可以发现：<br>当遇到与以前重复的字符时(记第一次字符出现的位置为index1,第二次出现的位置为index2)那么此时start的位置变为index1 +1, 继续向后扫描，当出现重复的时候(版本1中将hash表重置了)，<br>(1)如果此位置在start（hash[ s[end] ] &gt;=<br>start）以前，则直接计算(end -start +1)<br>(2)此字符还没有加入到hash表中，计算出以这个字符结尾的字串(没有重复的字符串)，比较长度<br>(3)此字符前一次出现的位置在start 以后，则更新start的位置，计算长度</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(<span class="keyword">char</span>* s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> hash[<span class="number">256</span>];</span><br><span class="line">    <span class="built_in">memset</span>(hash, <span class="number">-1</span>, <span class="keyword">sizeof</span>(hash));</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> length = <span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="keyword">if</span>(length == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>; </span><br><span class="line">    <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> maxL = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(end &lt; length)&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/*</span><br><span class="line">         *此处需要重点说明，end表示当前的字符，end以前的字符均已得到处理，</span><br><span class="line">         *</span><br><span class="line">        */</span></span><br><span class="line">        <span class="keyword">if</span>(hash[s[end]] &gt;= start)</span><br><span class="line">            start = hash[s[end]] + <span class="number">1</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        maxL = (end - start + <span class="number">1</span>) &gt; maxL ? (end - start + <span class="number">1</span>):maxL;</span><br><span class="line">        hash[s[end]] = end;</span><br><span class="line">        end++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参阅文章：<br>(<a href="http://fisherlei.blogspot.com/2012/12/leetcode-longest-substring-without.html" target="_blank" rel="external">http://fisherlei.blogspot.com/2012/12/leetcode-longest-substring-without.html</a>)<br>(<a href="http://blog.csdn.net/likecool21/article/details/10858799" target="_blank" rel="external">http://blog.csdn.net/likecool21/article/details/10858799</a>)<br>(<a href="http://www.acmerblog.com/leetcode-longest-substring-without-repeating-characters-5318.html" target="_blank" rel="external">http://www.acmerblog.com/leetcode-longest-substring-without-repeating-characters-5318.html</a>)</p>
 
       
     </div>
@@ -309,7 +317,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag">#c++</a>
+            <a href="/tags/leetcode-算法/" rel="tag">#leetcode 算法</a>
           
         </div>
       
@@ -318,17 +326,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/08/二叉树/" rel="next" title="二叉搜索树">
-                <i class="fa fa-chevron-left"></i> 二叉搜索树
+              <a href="/2016/04/12/leetcode Roman to interger/" rel="next" title="leetcode Roman to int">
+                <i class="fa fa-chevron-left"></i> leetcode Roman to int
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/11/linux多线程/" rel="prev" title="linux多线程同步">
-                linux多线程同步 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -354,8 +358,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/08/sizeof的用法总结/"
-           data-title="sizeof用法总结" data-url="http://louisyw.github.io/2016/03/08/sizeof的用法总结/">
+      <div class="ds-thread" data-thread-key="2016/04/13/计算出给定的字符串的最长无重复字串/"
+           data-title="Longest Substring Without Repeating Characters" data-url="http://louisyw.github.io/2016/04/13/计算出给定的字符串的最长无重复字串/">
       </div>
     
   </div>
@@ -450,7 +454,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Longest-Substring-Without-Repeating-Characters"><span class="nav-number">1.</span> <span class="nav-text">3.Longest Substring Without Repeating Characters</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
