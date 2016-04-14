@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法," />
+  <meta name="keywords" content="leetcode 算法," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="c语言中快排的实现">
+<meta name="description" content="旋转数组和链表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="排序算法">
-<meta property="og:url" content="http://louisyw.github.io/2016/03/18/快速排序/index.html">
+<meta property="og:title" content="Rotate Array and Rotate List">
+<meta property="og:url" content="http://louisyw.github.io/2016/04/14/旋转数组和链表/index.html">
 <meta property="og:site_name" content="Louis's Blog">
-<meta property="og:description" content="c语言中快排的实现">
-<meta property="og:updated_time" content="2016-03-28T02:28:29.238Z">
+<meta property="og:description" content="旋转数组和链表">
+<meta property="og:updated_time" content="2016-04-14T12:43:29.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="排序算法">
-<meta name="twitter:description" content="c语言中快排的实现">
+<meta name="twitter:title" content="Rotate Array and Rotate List">
+<meta name="twitter:description" content="旋转数组和链表">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> 排序算法 | Louis's Blog </title>
+  <title> Rotate Array and Rotate List | Louis's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -226,7 +226,7 @@
             
             
               
-                排序算法
+                Rotate Array and Rotate List
               
             
           </h1>
@@ -238,8 +238,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-18T00:00:00+08:00" content="2016-03-18">
-              2016-03-18
+            <time itemprop="dateCreated" datetime="2016-04-14T20:00:00+08:00" content="2016-04-14">
+              2016-04-14
             </time>
           </span>
 
@@ -268,8 +268,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/18/快速排序/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/18/快速排序/" itemprop="commentsCount"></span>
+                <a href="/2016/04/14/旋转数组和链表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/14/旋转数组和链表/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,9 +291,12 @@
       
 
       
-        <p>c语言中快排的实现<br><a id="more"></a></p>
-<hr>
-<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">myqsort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> left, <span class="keyword">int</span> right)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &gt;= right) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> last = left;</span><br><span class="line">    <span class="keyword">int</span> mid = left + (right- left)/<span class="number">2</span>;</span><br><span class="line">    swap(a[mid], a[left]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = left +<span class="number">1</span>; i&lt;= right; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i] &lt; a[left])</span><br><span class="line">            swap(a[i],a[++last]);        <span class="comment">//此处始终保证了last所指向的元素的后一个元素大于等于划分点，并且(left +1, last)的所有元素小于划分点</span></span><br><span class="line">    &#125;</span><br><span class="line">    swap(a[left], a[last]);</span><br><span class="line"></span><br><span class="line">    myqsort(a, left, last <span class="number">-1</span>);</span><br><span class="line">    myqsort(a, last + <span class="number">1</span>, right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[] =&#123;<span class="number">9</span>,<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">81</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">91</span>,<span class="number">99</span>,<span class="number">8</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> length = <span class="keyword">sizeof</span>(arr)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span> ; i &lt; length; ++i)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    myqsort(arr, <span class="number">0</span>, length <span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n after sort:\n"</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span> ; i&lt; length; ++i)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>旋转数组和链表</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><h1 id="Rotate-Array"><a href="#Rotate-Array" class="headerlink" title="Rotate Array"></a><a href="https://leetcode.com/problems/rotate-array/" target="_blank" rel="external">Rotate Array</a></h1><p>Rotate an array of n elements to the right by k steps.<br>For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].</p>
+<p>题目大意:将数组右旋k步<br>解法一:<br>解法1：1.旋转整个数组： [1,2,3,4,5,6,7] =&gt; [7,6,5,4,3,2,1]<br>　　　  2.旋转前k个数：[7,6,5,4,3,2,1] =&gt; [5,6,7,4,3,2,1]<br>　　　  3.旋转后n-k个数：[5,6,7,4,3,2,1] =&gt; [5,6,7,1,2,3,4]<br>　　　<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">rotate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(k &lt;= <span class="number">0</span> || nums.size() &lt;= <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">//注意此处k对数组的长度取模，因为k有可能大于数组长度</span></span><br><span class="line">        k = k % nums.size();</span><br><span class="line">        </span><br><span class="line">        reverse(nums.begin(), nums.end());</span><br><span class="line">        reverse(nums.begin(), nums.begin() + k);</span><br><span class="line">        reverse(nums.begin() + k, nums.end());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>另外的解法参考:</p>
+<h2 id="http-www-cnblogs-com-vincently-p-4299924-html"><a href="#http-www-cnblogs-com-vincently-p-4299924-html" class="headerlink" title="http://www.cnblogs.com/vincently/p/4299924.html"></a><a href="http://www.cnblogs.com/vincently/p/4299924.html" target="_blank" rel="external">http://www.cnblogs.com/vincently/p/4299924.html</a></h2><h1 id="Rotate-List"><a href="#Rotate-List" class="headerlink" title="Rotate List"></a><a href="https://leetcode.com/problems/rotate-list/" target="_blank" rel="external">Rotate List</a></h1><p>Given a list, rotate the list to the right by k places, where k is non-negative.<br>For example:<br>Given 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL and k = 2,<br>return 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL.<br>解法，首尾相连，头部向前移动len(List) - k % len(List)步</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * Definition for singly-linked list.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     int val;</span><br><span class="line"> *     ListNode *next;</span><br><span class="line"> *     ListNode(int x) : val(x), next(NULL) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">rotateRight</span><span class="params">(ListNode* head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="literal">NULL</span>  || head-&gt;next == <span class="literal">NULL</span> || k == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        </span><br><span class="line">        ListNode *prev = head;</span><br><span class="line">        <span class="keyword">int</span> len = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">//prev指向尾节点</span></span><br><span class="line">        <span class="keyword">while</span>(prev-&gt;next != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            prev = prev-&gt;next;</span><br><span class="line">            len++;</span><br><span class="line">        &#125;</span><br><span class="line">            </span><br><span class="line">        k = len - k % len;</span><br><span class="line">        <span class="comment">//首尾相连</span></span><br><span class="line">        prev-&gt;next = head;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(k &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            prev = prev-&gt;next;</span><br><span class="line">            k--;</span><br><span class="line">        &#125;</span><br><span class="line">        head = prev-&gt;next;</span><br><span class="line">        prev-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -308,7 +311,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法/" rel="tag">#算法</a>
+            <a href="/tags/leetcode-算法/" rel="tag">#leetcode 算法</a>
           
         </div>
       
@@ -317,16 +320,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/13/链表的总结/" rel="next" title="链表总结">
-                <i class="fa fa-chevron-left"></i> 链表总结
+              <a href="/2016/04/14/Length Of Last Word/" rel="next" title="Length Of Last Word">
+                <i class="fa fa-chevron-left"></i> Length Of Last Word
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/03/18/二分查找的应用/" rel="prev" title="二分查找">
-                二分查找 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/14/3Sum/" rel="prev" title="leetcode 3sum">
+                leetcode 3sum <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -353,8 +356,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/18/快速排序/"
-           data-title="排序算法" data-url="http://louisyw.github.io/2016/03/18/快速排序/">
+      <div class="ds-thread" data-thread-key="2016/04/14/旋转数组和链表/"
+           data-title="Rotate Array and Rotate List" data-url="http://louisyw.github.io/2016/04/14/旋转数组和链表/">
       </div>
     
   </div>
@@ -449,7 +452,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-number">1.</span> <span class="nav-text">快速排序</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rotate-Array"><span class="nav-number"></span> <span class="nav-text">Rotate Array</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#http-www-cnblogs-com-vincently-p-4299924-html"><span class="nav-number">1.</span> <span class="nav-text">http://www.cnblogs.com/vincently/p/4299924.html</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rotate-List"><span class="nav-number"></span> <span class="nav-text">Rotate List</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
