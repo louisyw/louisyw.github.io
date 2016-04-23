@@ -1,0 +1,904 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法 Bit Manipulation," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/Mario.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="介绍二进制位操作的技巧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二进制位计算的总结">
+<meta property="og:url" content="http://louisyw.github.io/2016/04/20/位操作/index.html">
+<meta property="og:site_name" content="Louis's Blog">
+<meta property="og:description" content="介绍二进制位操作的技巧">
+<meta property="og:updated_time" content="2016-04-23T08:23:30.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二进制位计算的总结">
+<meta name="twitter:description" content="介绍二进制位操作的技巧">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+  <title> 二进制位计算的总结 | Louis's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Louis's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                二进制位计算的总结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-04-20T00:00:00+08:00" content="2016-04-20">
+              2016-04-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/20/位操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/20/位操作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>介绍二进制位操作的技巧</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h2><p>最近在刷题的时候遇到很多位操作的题，毕竟以前是学通信的，对于位操作还是有很多美好的记忆的，现归纳总结</p>
+<h1 id="位操作"><a href="#位操作" class="headerlink" title="位操作"></a>位操作</h1><p>包括位运算符和移位操作<br>位运算符包括&amp;(与and), |(或or), ~(非not), ^(异或xor),<br>not运算的定义是把内存中的0和1全部取反，<br>对于无符号类型，取反后的效果就是把这个数在数轴上的位置“对称翻折到另一边去”，因为无符号类型的数是用$0000到$FFFF依次表示的。<br>而对于有符号的类型，取反后最高位的变化导致了正负颠倒，又因为负数储存使用补码，所以效果就是变为-a-1。这与上下界没有任何关系。<br>移位包括左移和右移。<br>左移(shl): 各二进位全部左移若干位，高位丢弃，低位补0.<br>右移(shr): 分为逻辑右移和算术右移,各二进位全部右移若干位，对无符号数，高位补0，<strong>有符号数</strong>，各编译器处理方法不一样，有的补符号位（算术右移），有的补0（逻辑右移）,对于有符号数，一般是算术右移。<br>1)负数的右移：负数右移的话(符号位为1)，由于要保持它是负数，所以负数的二进制的右边补1。如果一直右移的话，最后就就变成0xFFFFFFFF 即-1<br>如： -4&gt;&gt;1 为-2 ；-4&gt;&gt;2为-1<br>2)负数的左移：跟正整数左移一样，右边补0，一直左移的话，最后就是0啦。-2&lt;&lt;2为-4 ； -2&lt;&lt;31为0<br>注意,下面的右移是逻辑右移</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">示例</th>
+<th style="text-align:center">位运算</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">去掉最后一位</td>
+<td style="text-align:center">(101101-&gt;10110)</td>
+<td style="text-align:center">x &gt;&gt; 1</td>
+</tr>
+<tr>
+<td style="text-align:center">在最后加一个0</td>
+<td style="text-align:center">(101101-&gt;1011010)</td>
+<td style="text-align:center">x &lt;&lt; 1</td>
+</tr>
+<tr>
+<td style="text-align:center">在最后加一个1</td>
+<td style="text-align:center">(101101-&gt;1011011)</td>
+<td style="text-align:center">(x &lt;&lt; 1) + 1</td>
+</tr>
+<tr>
+<td style="text-align:center">把最后一位变成1</td>
+<td style="text-align:center">(101100-&gt;101101)</td>
+<td style="text-align:center">x or 1</td>
+</tr>
+<tr>
+<td style="text-align:center">把最后一位变成0</td>
+<td style="text-align:center">(101101-&gt;101100)</td>
+<td style="text-align:center">x or 1 - 1</td>
+</tr>
+<tr>
+<td style="text-align:center">最后一位取反</td>
+<td style="text-align:center">(101101-&gt;101100)</td>
+<td style="text-align:center">x ^ 1</td>
+</tr>
+<tr>
+<td style="text-align:center">把右数第k位变成1</td>
+<td style="text-align:center">(101001-&gt;101101,k=3)</td>
+<td style="text-align:center">x or (1 &lt;&lt; (k-1))</td>
+</tr>
+<tr>
+<td style="text-align:center">把右数第k位变成0</td>
+<td style="text-align:center">(101101-&gt;101001,k=3)</td>
+<td style="text-align:center">x and not (1  &lt;&lt; (k-1))</td>
+</tr>
+<tr>
+<td style="text-align:center">右数第k位取反</td>
+<td style="text-align:center">(101001-&gt;101101,k=3)</td>
+<td style="text-align:center">x ^ (1 &lt;&lt; (k-1))</td>
+</tr>
+<tr>
+<td style="text-align:center">取末三位</td>
+<td style="text-align:center">(1101101-&gt;101)</td>
+<td style="text-align:center">x and 7</td>
+</tr>
+<tr>
+<td style="text-align:center">取末k位</td>
+<td style="text-align:center">(1101101-&gt;1101,k=5）</td>
+<td style="text-align:center">x and( (1 &lt;&lt; k) -1)即 x and $2^k-1)$</td>
+</tr>
+<tr>
+<td style="text-align:center">取右数第k位</td>
+<td style="text-align:center">(1101101-&gt;1,k=4)</td>
+<td style="text-align:center">x &gt;&gt; (k-1) and 1</td>
+</tr>
+<tr>
+<td style="text-align:center">把末k位变成1</td>
+<td style="text-align:center">(101001-&gt;101111,k=4)</td>
+<td style="text-align:center">x or ((1&lt;&lt; k)-1) 即 x or $2^k - 1$</td>
+</tr>
+<tr>
+<td style="text-align:center">末k位取反</td>
+<td style="text-align:center">(101001-&gt;100110,k=4)</td>
+<td style="text-align:center">x xor ( (1 &lt;&lt; k) -1)即 x ^ $2^k-1$</td>
+</tr>
+<tr>
+<td style="text-align:center">把右边连续的1变成0</td>
+<td style="text-align:center">(100101111-&gt;100100000)</td>
+<td style="text-align:center">x and (x+1)</td>
+</tr>
+<tr>
+<td style="text-align:center">把右起第一个0变成1</td>
+<td style="text-align:center">(100101111-&gt;100111111)</td>
+<td style="text-align:center">x or (x+1)</td>
+</tr>
+<tr>
+<td style="text-align:center">把右起第一个1变成0</td>
+<td style="text-align:center">11011000-&gt;11010000</td>
+<td style="text-align:center">x and (x-1)</td>
+</tr>
+<tr>
+<td style="text-align:center">把右边连续的0变成1</td>
+<td style="text-align:center">(11011000-&gt;11011111)</td>
+<td style="text-align:center">x or (x-1)</td>
+</tr>
+<tr>
+<td style="text-align:center">取右边连续的1</td>
+<td style="text-align:center">(100101111-&gt;1111)</td>
+<td style="text-align:center">(x ^ (x+1)) &lt;&lt; 1</td>
+</tr>
+<tr>
+<td style="text-align:center">去掉右起第一个1的左边</td>
+<td style="text-align:center">(100101000-&gt;1000)</td>
+<td style="text-align:center">x and (x xor (x-1))或者 x &amp; (-x)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="位操作技巧"><a href="#位操作技巧" class="headerlink" title="位操作技巧"></a>位操作技巧</h1><p>巧妙利用位操作，可以提高程序的效率，例如乘以2，直接用左移，速度会快很多。</p>
+<h2 id="判断奇偶"><a href="#判断奇偶" class="headerlink" title="判断奇偶"></a>判断奇偶</h2><p>只需要判断二进制表示的最后一位是不是为1<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num &amp; <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="交换两数"><a href="#交换两数" class="headerlink" title="交换两数"></a>交换两数</h2><p>利用a^b^a = b<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">int</span> a= <span class="number">2</span>, b = <span class="number">3</span>;</span><br><span class="line"><span class="comment">/*</span><br><span class="line">a = a^b;</span><br><span class="line">b = b^a;</span><br><span class="line">a = a^b;</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line">a ^= b;</span><br><span class="line">b ^= a;</span><br><span class="line">a ^= b;</span><br></pre></td></tr></table></figure></p>
+<h2 id="变换符号"><a href="#变换符号" class="headerlink" title="变换符号"></a>变换符号</h2><p>主要是补码和反码的知识，以后来补;<br>如对于-11和11，可以通过下面的变换方法将-11变成11</p>
+<pre><code>1111 0101(二进制) –取反-&gt; 0000 1010(二进制) –加1-&gt; 0000 1011(二进制)
+</code></pre><p>同样可以这样的将11变成-11</p>
+<pre><code>0000 1011(二进制) –取反-&gt; 1111 0100(二进制) –加1-&gt; 1111 0101(二进制)
+</code></pre><h2 id="求绝对值"><a href="#求绝对值" class="headerlink" title="求绝对值"></a>求绝对值</h2><p>类似于上面的符号变换</p>
+<h2 id="计算一个数的二进制1的个数"><a href="#计算一个数的二进制1的个数" class="headerlink" title="计算一个数的二进制1的个数"></a>计算一个数的二进制1的个数</h2><p>书面称作hammingWeight<br><a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" rel="external">number-of-1-bits</a><br>第一种方法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*这种方法只对无符号数有效，有符号数使用将会陷入死循环*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(uint32_t n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            <span class="keyword">if</span>(n&amp;<span class="number">1</span>)  count++;</span><br><span class="line">            n = n&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(n)&#123;</span><br><span class="line">        <span class="keyword">if</span>(n &amp; flag) count++;</span><br><span class="line">        flag&lt;&lt;<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种方法：利用n&amp;(n-1)消除最后一位的1.<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hammingWeight</span><span class="params">(uint32_t n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(n)&#123;</span><br><span class="line">            count++;</span><br><span class="line">            n = n &amp;(n<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Power-Of-Two"><a href="#Power-Of-Two" class="headerlink" title="Power Of Two"></a>Power Of Two</h2><p>一个数是2的次方，那么这个数的二进制一定是最高位为1，其他位是0<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isPowerOfTwo</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> (n&gt;<span class="number">0</span>)&amp;&amp;(!(n&amp;(n<span class="number">-1</span>)));</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://blog.csdn.net/zouliping123/article/details/8995373" target="_blank" rel="external">更多技巧详见</a></p>
+<h1 id="一些题目"><a href="#一些题目" class="headerlink" title="一些题目"></a>一些题目</h1><h2 id="Counting-Bits"><a href="#Counting-Bits" class="headerlink" title="Counting Bits"></a><a href="https://leetcode.com/problems/counting-bits/" target="_blank" rel="external">Counting Bits</a></h2><h2 id="Reverse-Bits"><a href="#Reverse-Bits" class="headerlink" title="Reverse Bits"></a><a href="https://leetcode.com/problems/reverse-bits/" target="_blank" rel="external">Reverse Bits</a></h2><h2 id="Number-of-1-bits"><a href="#Number-of-1-bits" class="headerlink" title="Number of 1 bits"></a><a href="https://leetcode.com/problems/number-of-1-bits/" target="_blank" rel="external">Number of 1 bits</a></h2><h2 id="Power-Of-Two-1"><a href="#Power-Of-Two-1" class="headerlink" title="Power Of Two"></a><a href="https://leetcode.com/problems/power-of-two/" target="_blank" rel="external">Power Of Two</a></h2><h1 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h1><p>Bitmap又称位图，<br>这里有一篇利用bit位优化素数查找的文章<br><a href="http://blog.csdn.net/morewindows/article/details/7354571" target="_blank" rel="external">http://blog.csdn.net/morewindows/article/details/7354571</a><br>这篇文章很好的介绍了位操作<br>参见另一篇文章<a href="https://www.zybuluo.com/mdeditor#347766" target="_blank" rel="external">bitmap</a><br>参阅:<br><a href="http://www.matrix67.com/blog/archives/263" target="_blank" rel="external">http://www.matrix67.com/blog/archives/263</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法-Bit-Manipulation/" rel="tag">#算法 Bit Manipulation</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/19/leecode反转系列/" rel="next" title="leecode反转系列">
+                <i class="fa fa-chevron-left"></i> leecode反转系列
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/23/Power And Square/" rel="prev" title="power and square">
+                power and square <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/20/位操作/"
+           data-title="二进制位计算的总结" data-url="http://louisyw.github.io/2016/04/20/位操作/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="gcc" />
+          <p class="site-author-name" itemprop="name">gcc</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位操作"><span class="nav-number"></span> <span class="nav-text">位操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位操作技巧"><span class="nav-number"></span> <span class="nav-text">位操作技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断奇偶"><span class="nav-number">1.</span> <span class="nav-text">判断奇偶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交换两数"><span class="nav-number">2.</span> <span class="nav-text">交换两数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变换符号"><span class="nav-number">3.</span> <span class="nav-text">变换符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#求绝对值"><span class="nav-number">4.</span> <span class="nav-text">求绝对值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算一个数的二进制1的个数"><span class="nav-number">5.</span> <span class="nav-text">计算一个数的二进制1的个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Power-Of-Two"><span class="nav-number">6.</span> <span class="nav-text">Power Of Two</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些题目"><span class="nav-number"></span> <span class="nav-text">一些题目</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Counting-Bits"><span class="nav-number">1.</span> <span class="nav-text">Counting Bits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reverse-Bits"><span class="nav-number">2.</span> <span class="nav-text">Reverse Bits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Number-of-1-bits"><span class="nav-number">3.</span> <span class="nav-text">Number of 1 bits</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Power-Of-Two-1"><span class="nav-number">4.</span> <span class="nav-text">Power Of Two</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bitmap"><span class="nav-number"></span> <span class="nav-text">Bitmap</span></a></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">gcc</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"louisyw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  
+
+
+
+<!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+</body>
+</html>
